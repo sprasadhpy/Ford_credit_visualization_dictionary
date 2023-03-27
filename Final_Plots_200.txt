@@ -1,0 +1,3294 @@
+
+/*
+Macro Name: Ford_credit_visualization_dictionary
+
+Authors: 1) R.Shyaam prasadh (rshyaamp) 2) Sai Prasanna Nagalla (snagall1)
+Team: Independent Validation (Ford Credit analytics)
+
+Macro Version control: Version 1.0
+Software to run: SAS 8.2.0
+
+This macro serves as a tool to aid in visualizing datasets, including all possible combinations of plots available in SAS. 
+This version can be extended and customized according to user needs.
+*/
+
+%create_plots(1,sashelp.cars, horsepower, mpg_city);
+
+/* This macro call requires four arguments:
+
+Argument 1: A number indicating the type of SAS plot to create (list below).
+Argument 2: The dataset to be visualized.
+Arguments 3 and 4: The variables to be included in the visualization. */
+
+
+/* 1 - Basic scatter plot */
+/* 2 - Grouped scatter plot */
+/* 3 - Regression Fit plot */
+/* 4 - Regression Fit Plot with Transparency */
+/* 5 - Regression Fit Plot with Transparency and Confidence Limits*/
+/* 6 - Grouped fit plot with limits */
+/* 7 - Histogram */
+/* 8 - Histogram with density plot */
+/* 9 - Vertical box plot */
+/* 10 - Grouped box plot vertical */
+/* 11 - Interval Box plot */
+/* 12 - Series plot */
+/* 13 - Grouped Series plot */
+/* 14 - Grouped Step plot */
+/* 15 - Step plot with limits */
+/* 16 - Dot plot with limits */
+/* 17 - Vector plot */
+/* 18 - Bar chart */
+/* 19 - Grouped Bar chart */
+/* 20 - Stacked  Bar chart */
+/* 21 - Bar - Bar Overlay */
+/* 22 - Bar - Char with multi responses */
+/* 23 - Bar Chart with patterns */
+/* 24 - Grouped Bar Chart */
+/* 25 - Multiple Bar Chart */
+/* 26 - Horizontal Bar Chart */
+/* 27 - Horizontal Bar Chart with Limits */
+/* 28 - High-Low Plot */
+/* 29 - Barchart Panel */
+/* 30 - Box Plot Row Lattice */
+/* 31 - Histogram Lattice */
+/* 32 - Comparitive Scatter Plot */
+/* 33 - Scatter plot matrix */
+/* 34 - series plot */
+/* 35 - series plot */
+/* 36 - series plot */
+/* 37 - series plot */
+/* 38 - series plot */
+/* 39 - series plot */
+/* 40 - series plot */
+/* 41 - Two Scatter Plot Overlay */
+/* 42 - Two Scatter Plot with Custom Attributes */
+/* 43 - Scatter with Y Upper Error */
+/* 44 - Scatter with Y Lower and Upper Error */
+/* 45 - scatter plot with x error upper and x error lower */
+/* 46 - scatter plot with x error upper, x error lower,  y error upper and yerror lower*/
+/* 47 - scatter plot with x error upper, x error lower,  y error upper and yerror lower for each category*/
+/* 48 - Scatter with X and Y Limits  */
+/* 49 - Scatter Plot with Y2 Axis */
+/* 50 - Scatter Plot with X2 and Y2 Axes */
+/* 51 - Scatter with Reflected Ticks on Y2 */
+/* 52 - Scatter with X, Y, and Y2 Axis */
+/* 53 - Scatter with Groups on Discrete Axis */
+/* 54 - Scatter with Clustered Groups on Discrete Axis */
+/* 55 - Scatter Overlay */
+/* 56 - Scatter Overlay with Discrete Offset */
+/* 57 - Scatter with Data Labels */
+/* 58 - Scatter with Reduced Number of Data Labels */
+/* 59 - Scatter with Marker Characters */
+/* 60 - Multiple Histograms_1 */
+/* 61 - Multiple Histograms_1 */
+/* 62 - Normal Density Curve */
+/* 63 - Normal Density Curve with Options */
+/* 64 - Normal Density Curve with Options */
+/* 65 - Kernel density estimate */
+/* 66 - Grouped Unfilled Box Plot */
+/* 67 - Grouped Unfilled Box Plot */
+/* 68 - Box Plot Overlay */
+/* 69 - Box Plot on Linear Axis */
+/* 70 - Box Overlay for Linear Data */
+/* 71 - Box Overlay with Notches */
+/* 72 - Horizontal Box plot with Notches */
+/* 73 - Grouped Horizontal Box Plot */
+/* 74 - Grouped Horizontal Box with clusterwidth */
+/* 75 - Histogram with Normal and Kernel Density Plots */
+/* 76 - Bar Chart with Reference Line */
+/* 77 - Bar Chart with Confidence Limits */
+/* 78 - Bar Chart with Upper Limits */
+/* 79 - Bar Chart with Limits and Label Positioning */
+/* 80 - Bar Chart with Stacked Groups */
+/* 81 - Bar Chart with Adjacent Groups */
+/* 82 - Bar Chart with Groups and Pattern Fills */
+/* 83 - Grouped Bar Chart using PROC SGPANEL */
+/* 84 - Bullet Plot */
+/* 85 - Overlaid Bar Charts */
+/* 86 - Basic line chart */
+/* 87 - Line Chart with markers */
+/* 88 - Line Chart with Break */
+/* 89 - Line Chart with Data Labels */
+/* 90 - Line Chart with a Reference Line */
+/* 91 - Line Chart with Confidence Limits */
+/* 92 - Line Chart with upper Limits */
+/* 93 - Line Chart with CLM and Data Label Position */
+/* 94 - Grouped Line Chart */
+/* 95 - Line Chart with Curve Labels */
+/* 96 - Overlaid Line Charts */
+/* 97 - Overlaid Line Charts with Discrete Offset */
+/* 98 - Dot plot */
+/* 99 - Dot plots with reference line */
+/* 100 - Dot plots with confidence limits */
+/* 101 - Dot plots with upper limits */
+/* 102 - Grouped Dot Plots */
+/* 103 - Overlaid Dot Plots */
+/* 104 - Dot Plot with Discrete Offsets */
+/* 105 - Scatter plot - Plot Grid - 1 Row x 2 Columns */
+/* 106 - Scatter plot - Plot with fit */
+/* 107 - Scatter plot - Plot with fit and eclipse */
+/* 108 - Multiple plot request */
+/* 109 - Multiple plot request with eclipse */
+/* 110 - Uniform Side-by-Side Plots */
+/* 111 - Grouped Comparative Plot */
+/* 112 - Grouped Comparative Plot */
+/* 113 - Grouped Comparative Plot */
+/* 114 - Heat Map */
+/* 115 - Rectangular matrix */
+/* 116 - Scatter plot matrix */
+/* 117 - Scatter plot matrix with histograms */
+/* 118 - Scatter plot matrix with histograms */
+/* 119 - Grouped Scatter plots */
+/* 120 - Polynomial Regression Fit */
+/* 121 - Grouped Fits */
+/* 122 - Single Fit with a Group */
+/* 123 - Overlaid Fits */
+/* 124 - Curve Labels */
+/* 125 - Basic Loess Fit */
+/* 126 - Fit Plot with Smooth Curves */
+/* 127 - CLM Band */
+/* 128 - Attribute control */
+/* 129 - Scatter Data Labels */
+/* 130 - Cubic Loess Fit */
+/* 131 - Grouped Fits */
+/* 132 - Single Fit with a Group */
+/* 133 - Overlaid Fits */
+/* 134 - Curved Labels */
+/* 135 - Basic Parametric B-Spline Fit */
+/* 136 - CLM Band */
+/* 137 - CLI Band */
+/* 138 - Attribute Control */
+/* 139 - Scatter Data Labels */
+/* 140 - The degree option */
+/* 141 - Grouped fits */
+/* 142 - Single Fit with a Group */
+/* 143 - Overlaid Fits */
+/* 144 - Curve Labels */
+/* 145 - Ellipse plots */
+/* 146 - The Filled Ellipse */
+/* 147 - Ellipse Clipping */
+/* 148 - Ellipse with ConfidenceLevel */
+/* 149 - Ellipse with ConfidenceLevel */
+/* 150 - Ellipse Type */
+/* 151 - Overlaid Ellipses */
+/* 152 - Overlaid Filled Ellipses */
+/* 153 - Grouped Step Plot with Markers */
+/* 154 - Grouped Step Plot with Markers */
+/* 155 - Grouped Step Plot with Upper Limit */
+/* 156 - Grouped Step Plot with Both Limits and Error Bar Attributes */
+/* 157 - Overlay Step Plot with Curve Labels */
+/* 158 - Overlay Step Plot with Break */
+/* 159 - Basic Band Plot */
+/* 160 - Grouped Band Plot */
+/* 161 - Grouped Band Plot with Transparency */
+/* 162 - Overlay Band Plots */
+/* 163 - Overlay Band Plots */
+/* 164 - Overlay Band Plots with Curve Labels */
+/* 165 - Overlay Step and Band Plots */
+/* 166 - Basic Needle Plot */
+/* 167 - Grouped Needle Plot */
+/* 168 - Needle Plot with a Baseline */
+/* 169 - Needle Plot with Discrete Groups */
+/* 170 - Vector Plot */
+/* 171 - Vertical Vector Plot */
+/* 172 - Grouped Vector Plot */
+/* 173 - Parametric Bar Chart with Limits and Data Labels */
+/* 174 - Grouped Parametric Bar Chart */
+/* 175 - Grouped Parametric Bar Chart with Data Labels*/
+/* 176 - Overlay Parametric Bar Charts */
+/* 177 - Overlay Parametric Bar Charts with Skins and Offsets */
+/* 178 - Horizontal Parametric Bar Chart */
+/* 179 - Horizontal Parametric Bar Chart with Limits */
+/* 180 - Basic Bubble plot */
+/* 181 - Grouped Bubble plot */
+/* 182 - Bubble Plot with Negative Response Data */
+/* 183 - Response Plot */
+/* 184 - High Low plots with End Caps */
+/* 185 - High Low barchart */
+/* 186 - High Low barchart 2 */
+/* 187 - High Low barchart 3 */
+/* 188 - Parametric line Plot */
+/* 189 - Two Parametric lines Plot */
+/* 190 - Waterfall charts */
+/* 191 - Waterfall Chart with Initial Value */
+/* 192 - Grouped Waterfall Chart */
+/* 193 - Waterfall Chart with Data Labels */
+/* 194 - Scatter Series and Band */
+/* 195 - Scatter and Band */
+/* 196 - Grouped Band */
+/* 197 - Band Overlay */
+/* 198 - Floating Bars and Bands */
+/* 199 - Hbarparm with statistics */
+/* 200 - Scatter Panel */
+
+
+/**********************************************************/
+
+
+
+%macro create_plots(plot_num, data, x, y);
+
+ods graphics on;
+
+%if &plot_num. = 1 %then %do;
+
+/*  This SAS code generates a scatter plot visualization,useful for identifying any correlation between two variables.*/
+	title '1.Scatter plot for' &x. 'vs' &y.;
+	ods html file="Basic_Scatter_Plot.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /* // TODO: Update the drive location*/
+	proc sgplot data=&data.;
+	where type='Sedan' or type='Sports';   /* // TODO: Update the variable filters */
+	scatter x=&x. y=&y.;    
+	run;
+
+%end;
+
+%if &plot_num. = 2 %then %do;
+
+/* This SAS code generates a Grouped Scatter Plot, which helps to identify the correlation between two continuous variables that have been grouped 
+   or categorized by a third variable. */
+	title '2.Grouped Scatter Plot for' &x. 'vs' &y.;
+	ods html file="Grouped Scatter Plot.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /* // TODO: Update the drive location */
+
+	proc sgplot data=&data.;
+	where type='Sedan' or type='Sports'; /* // TODO: Update the variable filters */
+	scatter x= &x. y= &y./ group=type; /* // TODO: Update the group */
+	keylegend / title='Type: ' location=inside position=topright;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 3 %then %do;
+
+/* This SAS code generates a plot that displays both the data and the fitted regression line. The purpose of this plot is to analyze the relationship between two variables. */
+	title '3.Regression Fit Plot for' &x. 'vs' &y.;
+	ods html file="Fit Plot.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /* // TODO: Update the drive location */
+
+	proc sgplot data=&data.;
+	where type='Sedan' or type='Sports'; /* // TODO: Update the variable filters  */
+	reg x=&x. y=&y. / lineattrs=(thickness=2);
+	keylegend / location=inside position=topright;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 4 %then %do;
+
+/* This SAS code generates a Fit Plot with Transparency. This plot is a modified version of the standard regression fit plot, utilizing semi-transparent markers for data points instead of solid ones. 
+   The use of transparency in this visualization helps to emphasize areas on the plot where data points are densely concentrated */
+
+	title '4.Fit Plot with Transparency' &x. 'vs' &y.;
+	ods html file="Fit Plot with Transparent Markers.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /* // TODO: Update the drive location */
+
+	proc sgplot data=&data.;
+	where type='Sedan' or type='Sports'; /* // TODO: Update the variable filters */
+	scatter x=&x. y=&y. / transparency=0.9 
+	markerattrs=(symbol=circlefilled);
+	reg x=&x. y=&y. / nomarkers lineattrs=(thickness=3);
+	keylegend / location=inside position=topright across=1;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 5 %then %do;
+
+/* This SAS code generates a Fit Plot with Confidence Limits. 
+   It builds upon Plot 4 and includes confidence limits, which define the likely range of values for the true regression line with a specified degree of confidence. */
+
+	title '5.Fit Plot with Confidence Limits for' &x. 'vs' &y.;
+	ods html file="Fit Plot with Confidence Limits.html"
+	   path="/proj/gauser/snagall1/plots" (url=none);  /* // TODO: Update the drive location */
+	proc sgplot data=&data.;
+	where type='Sedan' or type='Sports';  /* // TODO: Update the variable filters */
+	scatter x=&x. y=&y. / transparency=0.9
+	markerattrs=(symbol=circlefilled);
+	reg x=&x. y=&y. / nomarkers lineattrs=(thickness=2)
+	cli clm degree=2;
+	keylegend / location=inside position=topright across=1;
+	xaxis grid; yaxis grid; 
+	run;
+
+%end;
+
+%if &plot_num. = 6 %then %do;
+
+/* This SAS code generates a Grouped Fit Plot, which displays each group in a different color and calculates a separate regression line for each group. 
+   It also includes upper and lower limit lines to represent the uncertainty of the regression fit for each group*/
+
+	title '6.Grouped Fit Plot with Limits between' &x. 'vs' &y.;
+	ods html file="Grouped Fit Plot with Limits.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /* // TODO: Update the drive location */
+	proc sgplot data=&data.;
+	where type='Sedan' or type='Sports'; /* TODO: Update the variable filters */
+	scatter x=&x. y=&y. / group=type transparency=0.9   /* // TODO: Update the group */
+	markerattrs=(symbol=circlefilled);
+	reg x=&x. y=&y. / group=type nomarkers name='a' /* // TODO: Update the group */
+	lineattrs=(thickness=2) degree=2 clm clmtransparency=0.6;
+	keylegend 'a' / location=inside position=topright across=1;
+	xaxis grid; yaxis grid; 
+	run;
+
+%end;
+
+%if &plot_num. = 7 %then %do;
+
+/*  This SAS code generates a histogram plot,representation of the distribution of a numerical variable*/
+
+	title '7.Distribution of ' &x.;
+	ods html file="Histogram.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /* // TODO: Update the drive location */
+	proc sgplot data=&data.;
+	where type='Sedan' or type='Sports'; /* TODO: Update the variable filters*/
+	histogram &x.;
+	xaxis display=(nolabel);
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 8 %then %do;
+
+/*   This SAS code generates a Histogram with Density Plot. 
+     It builds upon Plot 7 by incorporating a density plot into the histogram, providing a more precise estimation of the underlying probability density function. */ 
+
+	title '8.Histogram with Density Plot for ' &x.;
+	ods html file="Histogram with Density Plots.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /* // TODO: Update the drive location*/
+	proc sgplot data=&data.;
+	where type='Sedan' or type='Sports'; /* TODO: Update the variable filters */
+	histogram &x.;
+	density &x.;
+	density &x. / type=kernel;
+	keylegend / location=inside position=topright across=1;
+	xaxis display=(nolabel);
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 9 %then %do;
+
+/*  This SAS code generates a Vertical Box Plot. The visualization technique relies on five summary statistics - minimum value, first quartile (q1), median (q2), third quartile (q3), and maximum value
+   - to display the shape, center, and spread of a numerical variable's distribution. */
+	title '9.Vertical Box Plot' &x.;
+	ods html file="Box Plot – Vertical.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /* //TODO: Update the drive location */
+	proc sgplot data=&data.;
+	vbox &x. / category= &y.;
+	xaxis display=(nolabel);
+	yaxis grid;
+	run;
+%end;
+
+%if &plot_num. = 10 %then %do;
+
+/* This SAS code generates a Grouped- Box Plot – Vertical,enables the simultaneous comparison of multiple data groups. */
+
+	title '10.Grouped- Box Plot – Vertical' &x.;
+	ods html file=" Grouped- Box Plot – Vertical.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /* //TODO: Update the drive location */
+	proc sgplot data=&data.;
+	where (type='Sedan' or type='Sports' or type='Truck') and
+	(origin='USA' or origin='Asia');       /* TODO: Update the variable filters  */
+	hbox &x. / category=&y. group=origin groupdisplay=cluster
+	lineattrs=(pattern=solid); /* // TODO: Update the group */
+	keylegend / location=inside position=bottomright;
+	xaxis grid display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 11 %then %do;
+
+/* This SAS code creates a modified box plot that includes confidence intervals for the median and mean values, 
+   enhancing the understanding of the distribution */
+
+	title '11.Interval Box Plot for ' &x. and &y.;
+	ods html file=" Interval Box Plot.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /* //TODO: Update the drive location */
+	proc sgplot data=&data.;
+	where origin='USA';                 /* TODO: Update the variable filters  */
+	vbox &x. / category= &y.;
+	xaxis type=linear;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 12 %then %do;
+
+/* This SAS code creates a series plot with time on the x-axis and the variable's measured value on the y-axis. */ 
+
+	title '12.Series Plot';
+	ods html file=" Series Plot.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /* //TODO: Update the drive location */
+	proc sgplot data=&data.;
+	where stock = 'IBM';                /* TODO: Update the variable filters */
+	series x=&x. y=&y.;
+	xaxis grid display=(nolabel);
+	yaxis grid;
+	run;
+
+%end;
+
+
+%if &plot_num. = 13 %then %do;
+
+/*Expanding on Plot 12, this SAS code creates stacked areas that display the cumulative value of each category over time. Each category is represented by a unique colored area. */
+
+	ods graphics / antialiasmax=1000;
+	title '13.Grouped Series Plot';
+	ods html file=" Grouped Series Plot.html"
+	   path="/proj/gauser/snagall1/plots" (url=none);  /* //TODO: Update the drive location */
+	proc sgplot data=&data.;
+	series x=&x. y=&y. / group=stock;    /* // TODO: Update the group */
+	keylegend / location=outside across=3;
+	xaxis grid display=(nolabel);
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 14 %then %do;
+
+/*  This SAS code produces a grouped step plot to display differences among different groups of data across a sequence of time intervals. */
+
+	title '14.Grouped Step Plot';
+	ods html file=" Grouped Step Plot.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /* //TODO: Update the drive location */
+	proc sgplot data=&data.;
+	where date > '01Jan99'd and date < '01Jan00'd; /* TODO: Update the variable filters  */
+	format close dollar5.0;
+	step x= &x. y= &y. / group=stock lineattrs=(thickness=2);  /* // TODO: Update the group */
+	xaxis grid display=(nolabel);
+	yaxis grid;
+	keylegend / location=inside position=topright across=1;
+	run;
+
+%end;
+
+%if &plot_num. = 15 %then %do;
+
+/* This SAS code generates a series plot visualization, with each step indicating a change in value from the preceding data point.
+    The visualization features two horizontal lines representing the upper and lower limits.*/
+
+	title '15.Step Plot with Limits';
+	ods html file=" Step Plot with Limits.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /* //TODO: Update the drive location */
+	proc sgplot data=&data. noautolegend;          
+	step x=&x. y= &y. / yerrorlower=lower yerrorupper=upper
+	lineattrs=(thickness=2) errorbarattrs=(pattern=dash); /* // TODO: Update yerrorlower.yerrorupper variables */
+	xaxis grid;
+	yaxis grid label='Weight';   /* // TODO: Update Y Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 16 %then %do;
+
+/* This SAS code generates a dot plot visualization for displaying data, with upper and lower limits included for additional context */
+	title '16.Dot Plot with Limits';
+	ods html file=" Dot Plot with Limits.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /*//TODO: Update the drive location  */
+
+	proc sgplot data=&data.;
+	where type ne 'Hybrid';  /*  TODO: Update the variable filters */
+	dot &y. / response=&x. stat=mean limits=both;
+	keylegend / location=inside position=bottom;
+	xaxis grid;
+	yaxis offsetmax=0.2 display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 17 %then %do;
+
+/* This SAS code creates a vector plot where vectors are shown as arrows that originate from a specific point and extend in the direction of the vector. The length of the arrow indicates the magnitude, 
+   while the direction represents the vector's direction*/
+ 
+	title '17.Vector Plot for ' &x. &y.;
+	ods html file=" Vector Plot.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /* //TODO: Update the drive location  */
+	proc sgplot data=&data.;
+	where type= 'Sedan' and origin='USA'; /*  TODO: Update the variable filters  */
+	vector x=&x. y=&y. / xorigin=200 yorigin=20;
+	xaxis grid; yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 18 %then %do;
+
+/* This is a SAS code describing a graphical representation of data using rectangular bars to represent various categories or groups  */
+
+	title '18.Bar Chart for' &x. based on &y.;
+	ods html file=" Bar Chart.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /* //TODO: Update the drive location */
+
+	proc sgplot data=&data.;
+	format &x. 5.2;
+	vbar &y. / response=&x. stat=mean datalabel;
+	xaxis display=(nolabel);
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 19 %then %do;
+
+/* * This SAS code creates a grouped bar chart where rectangular bars are used to depict the values of distinct categories or groups. The bars are grouped together based on their similarities or differences, 
+     resulting in a visually appealing chart that facilitates data analysis.  */
+
+	title '19.Grouped Bar Chart for' &x.;
+	ods html file=" Grouped Bar Chart with Skins.html"
+	   path="/proj/gauser/snagall1/plots" (url=none);    /*//TODO: Update the drive location */
+	proc sgplot data=&data.;
+	where type='Sedan' or type='Sports';     /* TODO: Update the variable filters  */
+	format &x. 5.1;
+	vbar &y. / response=&x. group=origin stat=mean  /* TODO: Update group variable */
+	groupdisplay=cluster datalabel;
+	xaxis display=(nolabel);
+	yaxis grid;
+	run;
+
+%end;
+
+
+%if &plot_num. = 20 %then %do;
+
+/*  This SAS code generates a stacked bar chart where each bar represents a category or group, and the bar is divided into multiple segments that represent subcategories or values within that group. */
+	title '20.Stacked Bar Chart';
+	ods html file=" Stacked Bar Chart with Skins.html"
+	   path="/proj/gauser/snagall1/plots" (url=none);/*//TODO: Update the drive location */
+	proc sgplot data=&data.;
+	format &x. dollar8.0;
+	vbar &y. / response=&x. group=region; /* TODO: Update the variable filters*/
+	xaxis display=(nolabel);
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 21 %then %do;
+
+/* SAS code for Bar-Bar overlay plot, allowing easy comparison between multiple plots on same axes  */
+
+	title '21.Bar-Bar overlay for ' &x. and &y.;
+	ods html file=" Bar-Bar overlay.html"
+	   path="/proj/gauser/snagall1/plots" (url=none);/*//TODO: Update the drive location */
+	proc sgplot data=&data.;
+	vbar origin / response= &x. stat=mean nostatlabel;  
+	vbar origin / response= &y. stat=mean  /* vbar - update */
+	nostatlabel barwidth=0.6;
+	xaxis display=(nolabel);
+	yaxis grid offsetmin=0 label='Mileage'; /* TODO: Update the variable filters*/
+	run;
+
+%end;
+
+%if &plot_num. = 22 %then %do;
+
+/* SAS code for generating a multi-response bar chart, a chart type used to display the distribution of responses for multiple categories or variables*/
+
+	title '22.Bar-Chart with Multi responses';
+	ods html file=" Bar-Char with Multi responses.html"
+	   path="/proj/gauser/snagall1/plots" (url=none);/*//TODO: Update the drive location */
+	proc sgplot data=&data.;
+	where type='Sedan' or type='Sports';   /* TODO: Update the variable filters*/
+	vbar origin / response= &x. stat=mean dataskin=gloss /* vbar - update */
+	discreteoffset=-0.22 barwidth=0.4;
+	vbar origin / response= &y. stat=mean dataskin=gloss
+	discreteoffset=+0.22 barwidth=0.4;
+	xaxis display=(nolabel);
+	yaxis label="Mileage"; run;    /* TODO: Update the variable filters*/
+
+%end;
+
+%if &plot_num. = 23 %then %do;
+
+
+/*  SAS code for generating a pattern-filled bar chart, a chart type where bars are filled with patterns to represent different categories or variables  */
+	/*ods listing style=journal2; */
+	title '23.Bar Chart with Patterns';
+	ods html file=" Bar Chart with Patterns.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /*//TODO: Update the drive location */
+	proc sgplot data=&data.;
+	where type='Sedan' or type='Sports';   /* TODO: Update the variable filters*/
+	vbar &x. / response=&y. stat=mean group=type;   /* TODO: Update group variable */
+	xaxis display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 24 %then %do;
+
+/* SAS code for generating a grouped bar chart with skins, a chart type used to display data for multiple categories or variables, grouped based on one of the variables*/
+	title '24.Grouped Bar Chart';
+	ods html file=" Grouped Bar Chart with Skins.html"
+	   path="/proj/gauser/snagall1/plots" (url=none);/*//TODO: Update the drive location */
+	proc sgplot data=&data.;
+	where type='Sedan' or type='Sports'; /* TODO: Update the variable filters*/
+	vbar &x. / response= &y. stat=mean group=type
+	groupdisplay=cluster dataskin=sheen transparency=0;
+	xaxis display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 25 %then %do;
+
+/* SAS code for generating Multiple Bar Chart to display data for multiple categories with each category represented by multiple bars*/
+
+	/*ods listing style=journal3;*/
+	title '25.Multiple Bar Chart';
+	ods html file=" Multiple Bar Chart with Patterns and Skins.html"
+	   path="/proj/gauser/snagall1/plots" (url=none); /*//TODO: Update the drive location */
+	proc sgplot data=&data.;
+	where type='Sedan' or type='Sports';  /* // TODO: Update the variable filters */
+	vbar origin / response= &x. stat=mean barwidth=0.4
+	dataskin=pressed discreteoffset=-0.22;   /* vbar needs to be updated based on your requirement */
+	vbar origin / response= &y. stat=mean barwidth=0.4
+	dataskin=pressed discreteoffset=+0.22;
+	xaxis display=(nolabel);
+	yaxis label='Mileage'; 
+	run;
+
+%end;
+
+%if &plot_num. = 26 %then %do;
+
+/* SAS code for creating a Horizontal Bar Chart, where bars run horizontally and their length is proportional to the corresponding data value */
+
+	title '26.Horizontal Bar Chart';
+	ods html file=" Horizontal Bar Chart.html"
+	   path="/proj/gauser/snagall1/plots" (url=none);/*//TODO: Update the drive location */
+	proc sgplot data= &data.;
+	format &x. 5.1;
+	hbar &y. / response= &x. stat=mean datalabel;
+	xaxis grid display=(nolabel);
+	yaxis display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 27 %then %do;
+
+/* SAS code to generate a Horizontal Bar Chart with Upper and Lower Limits, where bars run horizontally and their length represents the data value, 
+   while lines or error bars indicate the upper and lower limits  */
+
+	title '27.Horizontal Bar Chart with Limits';
+	ods html file=" Horizontal Bars with Limits.html"
+	   path="/proj/gauser/snagall1" (url=none);/*//TODO: Update the drive location */
+	proc sgplot data= &data.;
+	hbar &y. / response= &x. stat=mean limits=both;
+	xaxis grid display=(nolabel);
+	yaxis display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 28 %then %do;
+
+/*  SAS code to generate a High-Low Plot, which displays the price range over a specific time period as a vertical line, 
+    where the top of the line indicates the highest value and the bottom of the line indicates the lowest value */
+
+	title '28.Stock Plot';
+	ods html file=" High-Low plot.html"
+	   path="/proj/gauser/snagall1" (url=none);/*//TODO: Update the drive location */
+	proc sgplot data= &data.;
+	where stock='IBM' and date > '01Jan2004'd; /* TODO: Update the variable filters*/
+	highlow x= &x. high=high low=low / open=open close= &y. /* // TODO: Update high, low, open variables */
+	lineattrs=(thickness=2);
+	xaxis grid display=(nolabel);
+	yaxis grid display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 29 %then %do;
+
+/* SAS code to generate a Bar Chart Panel, which is a visual representation of data in the form of rectangular bars. 
+   The panel consists of multiple bar charts displayed together  */
+
+	title '29.Barchart_Panel for' &x. and &y.;
+	ods html file="Barchart_Panel.html"
+	   path="/proj/gauser/snagall1" (url=none);/*//TODO: Update the drive location */
+	proc sgpanel data= &data. ;
+	where (type='Sedan' or type='Sports') and
+	(origin='USA' or origin='Asia');           /* TODO: Update the variable filters*/
+	panelby origin / novarname;
+	vbar &y. / response= &x. stat=mean dataskin=gloss
+	transparency=0.6;
+	rowaxis grid; 
+	run;
+
+
+%end;
+
+%if &plot_num. = 30 %then %do;
+
+/* SAS code to generate a Box Plot Row Lattice, a visual representation of multiple box plots displayed side-by-side in rows, 
+   with each row representing a different group or category of data * */
+
+	title '30.Box Plot Row Lattice';
+	ods html file="Box Plot Row Lattice.html"
+	   path="/proj/gauser/snagall1" (url=none);/*//TODO: Update the drive location */
+	proc sgpanel data= &data. noautolegend;
+	where (type='Sedan' or type='Sports') and
+	(origin='USA' or origin='Asia');  /* // TODO: Update the variable filters */
+	panelby &y. / layout=rowlattice novarname;
+	hbox &x. / category=origin group=origin;
+	colaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 31 %then %do;
+
+/*  SAS code to generate a histogram lattice.This displays multiple histograms in a grid-like pattern,
+with each histogram representing a different variable or category.  */
+
+	title '31.Histogram Lattice for ' &x.;
+	ods html file="Histogram Lattice.html"
+	   path="/proj/gauser/snagall1" (url=none);  /*//TODO: Update the drive location */
+
+	proc sgpanel data= &data. noautolegend;
+	where bp_status='Normal' or bp_status='High'; /* // TODO: Update the variable filters */
+	panelby sex bp_status / layout=lattice novarname;
+	histogram &x. / transparency=0.5;
+	density &x.;
+	rowaxis grid; colaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 32 %then %do;
+
+/*SAS code generates a Comparative Graph. The plot includes multiple data sets on the same graph, allowing for comparison of the
+relationship between the variables across different groups or categories.  */
+
+	title '32.Comparative Graph';
+	ods html file="Comparitive Scatter Plot.html"
+	   path="/proj/gauser/snagall1" (url=none); /*//TODO: Update the drive location */
+	proc sgscatter data= &data.;
+	where ageatstart > 58;   /* // TODO: Update the variable filters */
+	compare x=(cholesterol weight) y=(diastolic systolic) / /* // TODO: Update the four variables*/
+	transparency=0.8 markerattrs=(symbol=circlefilled) grid;
+	run;
+
+%end;
+
+%if &plot_num. = 33 %then %do;
+
+/* This SAS code generates a scatter plot matrix. The matrix is a type of visual representation that displays multiple scatter plots in a grid-like pattern, 
+   with each scatter plot representing the relationship between two variables.  */
+
+	title '33.Variable Association';
+	ods html file="Scatter Plot matrix.html"
+	   path="/proj/gauser/snagall1" (url=none); /*//TODO: Update the drive location */
+	proc sgscatter data= &data.;
+	label weight='Weight' cholesterol='Cholstrl'
+	diastolic='Diastlc' systolic='Systlc';
+	where ageatstart > 58;     /* // TODO: Update the variable filters */
+	matrix cholesterol diastolic systolic weight / diagonal=(histogram) /* // TODO: Update the four variables*/
+	transparency=0.8 markerattrs=(symbol=circlefilled);
+	run;
+
+%end;
+
+%if &plot_num. = 34 %then %do;
+
+/* SAS code to generate Grouped Series Plot with Markers*/
+
+	title '34.Response over Time';
+	proc sgplot data= &data.;
+	series x= &x. y= &y. / group=drug   /* // TODO: Update the group */
+	lineattrs=(thickness=2) curvelabel;
+	xaxis display=(nolabel);
+	yaxis min=0 integer grid label='Efficacy'; /* // TODO: Update integer grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 35 %then %do;
+
+/* Overlaid scatter plot with the FREQ option. */
+
+	title '35.Response over Time';
+	proc sgplot data= &data. noautolegend;
+	series x= &x. y= &y. / group=drug  /* // TODO: Update the group variable filters */
+	lineattrs=(thickness=2) curvelabel;
+	scatter x= &x. y= &y. / group=drug freq=freq markerattrs=(size=5); /* // TODO: Update group */
+	xaxis display=(nolabel);
+	yaxis min=0 integer grid label='Efficacy'; /* // TODO: Update integer grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 36 %then %do;
+
+/* DATALABEL option in the series plot */
+
+	title '36.Response over Time with data labels';
+	proc sgplot data= &data. noautolegend;
+	series x= &x. y= &y. / lineattrs=(thickness=2) datalabel=labela;
+	scatter x= &x. y=labela / markerattrs=(size=5); /* // TODO: Update the Y variable*/
+	xaxis display=(nolabel);
+	yaxis min=0 max=15 integer grid label='Efficacy'; /* // TODO: Update integer grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 37 %then %do;
+
+/* BREAK option causes series plot to be drawn with a break at missing data */
+
+	title '37.Response over Time with break';
+	proc sgplot data=&data.;
+	series x=&x. y=&y. / lineattrs=(thickness=2) break;
+	xaxis display=(nolabel);
+	yaxis min=0 max=15 integer grid label='Efficacy';  /* // TODO: Update integer grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 38 %then %do;
+
+/*SAS code to generate Series Plot Overlay with Discrete Offset*/
+
+	title '38. Sales by Quarter';
+	proc sgplot data= &data.;
+	series x= &x. y=salesa / discreteoffset=-0.2; /* // TODO: Update the y variable */
+	series x= &x. y=salesb / discreteoffset= 0.0;
+	series x= &x. y=salesc / discreteoffset=+0.2;
+	xaxis grid display=(nolabel) offsetmin=0.1 offsetmax=0.1;
+	yaxis grid label='Sales'; /* // TODO: Update Y Axis grid label */
+	keylegend / title='Drug: '; /* // TODO: Update Title */
+	run;
+
+%end;
+
+%if &plot_num. = 39 %then %do;
+
+/* Series Plot with Group Overlay*/
+
+	title '39. Sales by Quarter';
+	proc sgplot data=sgbook.seriesDiscreteGroup;
+	scatter x=qtr y=sales / yerrorupper=high yerrorlower=low /* // TODO: Update yerrorupper, yerrorlower variables*/
+	group=drug;                          /*// TODO: Update the group variable*/
+	series x=qtr y=sales / group=drug;       
+	xaxis grid display=(nolabel);
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 40 %then %do;
+
+/* Series Plot with Group Cluster */
+
+	title '40.Sales by Quarter';
+	proc sgplot data=sgbook.seriesDiscreteGroup;
+	scatter x= &x. y= &y. / group=drug yerrorupper=high yerrorlower=low /* // TODO: Update yerrorupper, yerrorlower variables*/
+	groupdisplay=cluster clusterwidth=0.6; /* // TODO: Update the group variable */
+	series x= &x. y= &y. / group=drug lineattrs=(thickness=1)
+	groupdisplay=cluster clusterwidth=0.6;
+	xaxis grid display=(nolabel);
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 41 %then %do;
+
+/* This SAS code generates a two scatter plot overlay, allowing for direct visual comparison and analysis of the relationship between the two sets of data*/
+
+	title '41.Two Scatter Plot Overlay';
+	proc sgplot data= &data.;
+	where type='Sedan' or type='Sports';
+	scatter x= &x. y=mpg_city;      /* // TODO: Update the y variable*/
+	scatter x= &x. y=mpg_highway;   /* // TODO: Update the y variable */
+	keylegend / title='Type: ' location=inside across=1;
+	xaxis grid;
+	yaxis grid label='Mileage';  /* // TODO: Update Y Axis grid label variable */
+	run;
+
+%end;
+
+%if &plot_num. = 42 %then %do;
+
+/*  This SAS code generates Two Scatter Plot with Custom Attributes, where different groups or categories within each set of data are represented using different colors, shapes, or markers, allowing for the identification and comparison of patterns and relationships within each group or category. */
+
+	title '42.Two Scatter Plot with Custom Attributes';
+	proc sgplot data= &data.;
+	where type='Sedan' or type='Sports'; /* // TODO: Update the variable filters */
+	scatter x= &x. y=mpg_city / transparency=0.7
+	markerattrs=(symbol=circlefilled);
+	scatter x= &x. y=mpg_highway / transparency=0.7 /* // TODO: Update the y variable */
+	markerattrs=(symbol=trianglefilled);
+	keylegend / title='Type: ' location=inside across=1;
+	yaxis grid label='Mileage';  /* // TODO: Update Y Axis grid label */
+	xaxis grid; 
+	run;
+
+%end;
+
+%if &plot_num. = 43 %then %do;
+
+/* SAS code to generate Scatter with Y Upper Error */
+
+	title '43.Scatter with Y Upper Error';
+	proc sgplot data= &data.;
+	scatter x= &x. y= &y. / yerrorupper=yh markerattrs=(symbol=circlefilled);
+	xaxis grid;     /*// TODO: Update the yerrorupper */
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 44 %then %do;
+
+/* SAS code to generate Scatter with Y Lower and Upper Error */
+
+	title '44.Scatter with Y Lower and Upper Error';
+	proc sgplot data=&data. noautolegend;
+	scatter x=&x. y=&y. / yerrorlower=yl yerrorupper=yh  /* // TODO: Update yerrorlower, yerrorupper */
+	markerattrs=(symbol=circlefilled);
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 45 %then %do;
+
+/* SAS code to generate Scatter with X Lower and Upper Error */
+
+	title '45.Scatter with X Lower and Upper Error';
+	proc sgplot data= &data. noautolegend nocycleattrs;
+	scatter x=&x. y=&y. / xerrorlower=xl xerrorupper=xh /* // TODO: Update xerrorlower, xerrorupper */
+	markerattrs=(size=11);
+	scatter x=&x. y=&y. / markerattrs=(symbol=circlefilled color=white);
+	xaxis grid; yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 46 %then %do;
+
+/* SAS code to generate Scatter plot with X and Y Limits */
+
+	title '46.Scatter with X and Y Limits';
+	proc sgplot data= &data. noautolegend nocycleattrs;
+	scatter x=&x. y=&y. / xerrorlower=xl xerrorupper=xh /* // TODO: Update  xerrorlower, xerrorupper  */
+	yerrorlower=yl yerrorupper=yh markerattrs=(size=11);/* // TODO: Update yerrorlower, yerrorupper  */
+	scatter x=&x. y=&y. / markerattrs=( symbol=circlefilled color=white);
+	xaxis grid; yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 47 %then %do;
+
+/* Scatter plot to generate Grouped Scatter plot with X and Y Limits*/
+
+	title '47.Grouped Scatter with X and Y Limits';
+	proc sgplot data=&data. nocycleattrs;
+	scatter x=&x. y=&y. / group=group name='a' /* // TODO: Update xerrorlower, xerrorupper  */
+	xerrorlower=xl xerrorupper=xh yerrorlower=yl yerrorupper=yh; /* // TODO: Update yerrorlower, yerrorupper  */
+	scatter x=&x. y=&y. / group=group markerattrs=(size=13 color=white);
+	scatter x=&x. y=&y. / group=group;
+	keylegend 'a' / location=inside position=topright;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 48 %then %do;
+
+/* SAS code to generate Scatter  plot with X and Y Limits*/
+
+	title '48.Scatter with X and Y Limits';
+	proc sgplot data= &data.;
+	scatter x=&x. y=&y. / xerrorlower=xl xerrorupper=xh /* // TODO: Update xerrorlower, xerrorupper  */
+	yerrorlower=yl yerrorupper=yh group=group /* // TODO: Update yerrorlower, yerrorupper */
+	errorBarAttrs=(thickness=2 pattern=dash);
+	keylegend / location=inside position=topright;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 49 %then %do;
+
+ /* This SAS code generates a scatter plot using Y2 Axis, which is a secondary vertical axis that can display additional information or accommodate variables with different units of measurement*/
+
+	title '49.scatter plot using Y2 Axis';
+	proc sgplot data= &data.;
+	where type='Sedan' or type='Sports'; /*// TODO: Update variable filters */
+	scatter x= &x. y= &y. / transparency=0.8 Y2axis
+	markerattrs=(symbol=circlefilled);
+	xaxis grid;
+	y2axis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 50 %then %do;
+
+/*  This SAS code generates a scatter plot using X2 and Y2 Axis, allowing for easier identification of patterns and trends in the data and insights into the relationship between multiple variables*/
+	title '50.scatter plot using X2 and Y2 Axis';
+	proc sgplot data= &data.;
+	where type='Sedan' or type='Sports'; /* // TODO: Update variable filters  */
+	scatter x= &x. y= &y. / transparency=0.8 x2axis Y2axis
+	markerattrs=(symbol=circlefilled);
+	x2axis grid;
+	y2axis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 51 %then %do;
+
+/* This SAS code generates a Scatter with Reflected Ticks on Y2, displaying the relationship between two variables with a scatter plot that has mirrored tick marks on the secondary Y2 axis in relation to the primary Y-axis.*/
+
+	title '51.Scatter with Reflected Ticks on Y2';
+	proc sgplot data= &data.;
+	where type='Sedan' or type='Sports'; /* // TODO: Update variable filters  */
+	scatter x= &x. y= &y. / markerattrs=(symbol=squarefilled)
+	transparency=0.8;
+	xaxis grid;
+	yaxis grid refticks;
+	run;
+
+%end;
+
+%if &plot_num. = 52 %then %do;
+
+/*  This SAS code generates SAS with Three Axes, including a primary X-axis, a primary Y-axis, and a secondary Y2 axis for displaying two variables with different units of measurement or two different scales on the same graph.*/
+
+	ods escapechar='^';
+	title "52.Scatter with X, Y, and Y2 Axis";
+	proc sgplot data= &data.;
+	refline 32 / label='32' labelloc=inside labelpos=min;
+	scatter x= &x. y=high / legendlabel='High'; /* // TODO: Update y variable */
+	scatter x= &x. y=lowc / y2axis legendlabel='Low'; /* // TODO: Update y variable */
+	xaxis grid valueattrs=(size=6) offsetmin=0.1;
+	yaxis grid min=14 max=104;
+	y2axis min=-10 max=40;
+	keylegend / location=inside position=topleft across=1;
+	run;
+
+%end;
+
+
+%if &plot_num. = 53 %then %do;
+
+/* This SAS code generates a Scatter plot with Groups on Discrete Axis, displaying the relationship between two variables and grouping observations into discrete categories */
+
+	title "53.Scatter with Groups on Discrete Axis";
+	proc sgplot data= &data.;
+	scatter x= &x. y= &y. / group=type transparency=0.8;/* // TODO: Update group variable*/
+	xaxis display=(nolabel) offsetmin=0.1 offsetmax=0.1;
+	yaxis grid;
+	keylegend / location=inside position=topright across=2;
+	run;
+
+%end;
+
+%if &plot_num. = 54 %then %do;
+
+/* This SAS code generates Scatter plot with Clustered Groups on Discrete Axis, displaying the relationship between two variables while grouping observations into discrete categories and further sub-grouping the categories into clusters. */
+
+	title " 54.Scatter with Clustered Groups on Discrete Axis ";
+	proc sgplot data= &data.;
+	scatter x= &x. y= &y. / group=type groupdisplay=cluster
+	transparency=0.8; /* // TODO: Update "group" and "groupdisplay" variables */
+	xaxis display=(nolabel);
+	yaxis grid;
+	keylegend / location=inside position=topright across=2;
+	run;
+
+%end;
+
+%if &plot_num. = 55 %then %do;
+
+/* This sas code generates a Scatter Overlay, which combines two or more scatter plots by overlaying them on top of each other to visually compare data from multiple sources on the same graph. */
+
+	title " 55.Scatter Overlay ";
+	proc sgplot data= &data.;
+	where type='Sedan' or type='Sports'; /* // TODO: Update variable filters */
+	scatter x= &x. y=mpg_city / transparency=0.8;
+	scatter x= &x. y=mpg_highway / transparency=0.8; /* // TODO: Update Y variable */
+	xaxis display=(nolabel) offsetmin=0.1 offsetmax=0.1;
+	yaxis grid label='Mileage'; /* // TODO: Update Y Axis grid label */
+	keylegend / location=inside position=topright across=1;
+	run;
+
+%end;
+
+%if &plot_num. = 56 %then %do;
+
+/* This SAS code generates a scatter overlay plot with discrete set, where the data points are shifted slightly along the x-axis to avoid overlapping. This technique is often used when the data points are discrete and tend to cluster together*/
+
+	title "56.Scatter Overlay with Discrete Offset";
+	proc sgplot data= &data.;
+	where type='Sedan' or type='Sports'; /* // TODO: Update variable filters */
+	scatter x= &x. y=mpg_city / transparency=0.8 discreteoffset=-0.1;/*// TODO: Update "y" variable */
+	scatter x= &x. y=mpg_highway / transparency=0.8 discreteoffset=+0.1;/*// TODO: Update "y" variable */
+	xaxis display=(nolabel) offsetmin=0.2 offsetmax=0.2;
+	yaxis grid label='Mileage';  /* // TODO: Update Y Axis grid label */
+	keylegend / location=inside position=topright across=1;
+	run;
+
+%end;
+
+%if &plot_num. = 57 %then %do;
+
+/* This SAS code generates a scatter plot with data labels, which includes the actual values of each data point plotted on the graph  */
+
+	title ' 57.Scatter with Data Labels ';
+	proc sgplot data= &data.;
+	where type='Sedan' and origin='Asia' and mpgc > 27;/* // TODO: Update variable filters */
+	scatter x= &x. y= &y. / datalabel=model markerattrs=(symbol=circlefilled);
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 58 %then %do;
+
+/* This SAS code generates a Scatter with Reduced Number of Data Labels, which includes only a subset of the actual values of each data point plotted on the graph. */
+
+	title '58.Scatter with Reduced Number of Data Labels';
+	proc sgplot data= &data. noautolegend;
+	scatter x= &x. y= &y. / datalabel=model3 group=model3;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 59 %then %do;
+
+/*  This SAS code generates a Scatter with Marker Characters, using different symbols to represent each data point on the graph. This technique can help to differentiate between different groups or categories of data, or highlight specific data points of interest */
+
+	title "59.Scatter with Marker Characters";
+	proc sgplot data= &data. noautolegend;
+	refline 32 / label='32' labelloc=inside labelpos=min;
+	scatter x= &x. y=high / markerattrs=(symbol=circle size=15);
+	scatter x= &x. y=high / markerchar=high; /* // TODO: Update y variable */
+	scatter x= &x. y=lowc / markerattrs=(symbol=circle size=15) y2axis;
+	scatter x= &x. y=low / markerchar=low;
+	xaxis grid offsetmin=0.1;
+	yaxis grid min=14 max=104;
+	y2axis min=-10 max=40;
+	run;
+
+%end;
+
+%if &plot_num. = 60 %then %do;
+
+/* This SAS code generates multiple histograms*/
+
+	title '60.Multiple Histograms';
+	proc sgplot data= &data.;
+	histogram &x. / transparency=0.5;
+	histogram &y. / nofill;
+	yaxis grid;
+	xaxis display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 61 %then %do;
+
+/* This SAS code generates multiple histograms with binstart and binwidth options */
+
+	title '61.Multiple Histograms';
+	proc sgplot data= &data.;
+	histogram &x. / binstart=40 binwidth=10 transparency=0.7;
+	histogram &y. / binstart=40 binwidth=10 transparency=0.5;
+	refline 80 100 120 140 / axis=X label=('80' '100' '120' '140')
+	labelpos=max lineattrs=(pattern=dash);
+	keylegend / location=inside position=topright noborder;
+	xaxis display=(nolabel);
+	yaxis grid; 
+	run;
+
+%end;
+
+%if &plot_num. = 62 %then %do;
+
+/* This SAS code generates a normal density curve, which is often used to describe the distribution of continuous random variables that follow a normal distribution */
+
+	title '62.Normal Density Curve';
+	proc sgplot data= &data. noautolegend;
+	where type='Sedan'; /* // TODO: Update variable filters */
+	density &x.;
+	yaxis grid;
+	xaxis display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 63 %then %do;
+
+/* This SAS code generates a normal density curve with options */
+
+	title '63.Normal Density Curve With Options';
+	proc sgplot data= &data. noautolegend;
+	where type='Sedan';  /* // TODO: Update variable filters*/
+	density &x. / scale=percent lineattrs=(pattern=dash);
+	yaxis grid;
+	xaxis display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 64 %then %do;
+
+/* This SAS code generates a normal density curve with the Mu and Sigma parameters */
+
+	title '64.Normal Density Curve';
+	proc sgplot data= &data. noautolegend;
+	density &x. / scale=percent type=Normal(sigma=30);
+	inset "^{unicode SIGMA} = 30" / position=topright;
+	yaxis grid;
+	xaxis display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 65 %then %do;
+
+/* This SAS code generates a kernel density estimate to visualize the dataset's distribution and estimate its probability density function */
+
+	title '65.Kernel Density Estimate';
+	proc sgplot data= &data. noautolegend;
+	density &x. / scale=percent type=Kernel;
+	yaxis grid;
+	xaxis display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 66 %then %do;
+
+/*  SAS code to generate Grouped Unfilled Box Plot, showing distribution of values within each group */
+
+	title '66.Grouped Unfilled Box Plot';
+	proc sgplot data= &data.;
+	where type='Sedan' or type='Sports' or type='SUV'; /* update filter based on requirement */
+	vbox &x. / category=type group=drivetrain groupdisplay=cluster
+	nofill lineattrs=(pattern=solid); /* // TODO: Update category variable */
+	keylegend / location=inside position=topright across=1;
+	yaxis grid;
+	xaxis display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 67 %then %do;
+
+/*  SAS code generating Grouped Unfilled Box Plot with boxes representing groups' distributions */
+
+	title '67.Grouped Unfilled Box Plot';
+	proc sgplot data= &data.;
+	where type='Sedan' or type='Sports' or type='SUV'; /* // TODO: Update the variable filters */
+	vbox &x. / category=type discreteoffset=-0.12 boxwidth=0.2;
+	vbox &y. / category=type boxwidth=0.2 discreteoffset= 0.12;  /* // TODO: Update category variable */
+	keylegend / location=inside position=topright across=1;
+	yaxis grid label='Mileage';  /* // TODO: Update Y Axis grid label */
+	xaxis display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 68 %then %do;
+
+/*  SAS code for generating a Box Plot Overlay, displaying multiple box plots side-by-side for easy comparison of value distributions between groups/datasets */
+
+	title '68.Box Plot Overlay';
+	proc sgplot data= &data.;
+	where type='Sedan' or type='Sports' or type='SUV'; /* // TODO: Update variable filters */
+	vbox &x. / category=type discreteoffset=-0.12 boxwidth=0.2;
+	vbox &y. / category=type boxwidth=0.2 discreteoffset= 0.12; /* // TODO: Update category variable */
+	keylegend / location=inside position=topright across=1;
+	yaxis grid label='Mileage'; /* // TODO: Update Y Axis grid label */
+	xaxis display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 69 %then %do;
+
+/* SAS code for generating a Box Plot on a Linear Axis, displaying value distribution using box-and-whisker plot format with linear axis  */
+
+	title '69.Box Plot on Linear Axis';
+	proc sgplot data= &data.;
+	vbox &x. / category= &y.;
+	xaxis grid type=linear display=(nolabel) tickvalueformat=monname3.
+	values=('01Jan2009'd to '01Dec2009'd by month);  /* // TODO: Update values variable */
+	yaxis grid display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 70 %then %do;
+
+/* SAS code for generating a Box Overlay on Linear Data, using overlaid box-and-whisker plots on the same linear axis for easy comparison of value distribution between datasets */
+
+	title '70.Box Overlay for Linear Data';
+	proc sgplot data= &data.;
+	vbox &x. / category=date2 meanattrs=(size=5) outlierattrs=(size=5);/*// TODO: Update category variable */	
+	vbox &y. / category=date2 meanattrs=(size=5) outlierattrs=(size=5);
+	xaxis grid type=linear display=(nolabel) offsetmin=0.05 offsetmax=0.05
+	values=('01Jan2009'd to '01Dec2009'd by month) /* // TODO: Update values variable */
+	tickvalueformat=monname3.;
+	yaxis grid display=(nolabel);
+	run;
+%end;
+
+%if &plot_num. = 71 %then %do;
+
+ /* SAS code for generating a Box Overlay with Notches, using overlaid box-and-whisker plots with notches around the boxes to guide the level of uncertainty in comparing medians between datasets  */
+
+	title '71.Box Overlay with Notches';
+	proc sgplot data= &data.;
+	vbox &x. / category= &y. notches;
+	xaxis grid;
+	yaxis grid display=(nolabel) offsetmax=0.2;
+	run;
+
+%end;
+
+%if &plot_num. = 72 %then %do;
+
+/* SAS code for generating a Horizontal Box plot with Notches, using overlaid box-and-whisker plots on the same horizontal axis with notches around the boxes to provide a rough guide to the level of uncertainty  */
+
+	title '72.Horizontal Box plot with Notches';
+	proc sgplot data= &data.;
+	hbox &x. / category= &y. notches;
+	xaxis grid display=(nolabel);
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 73 %then %do;
+
+/*  SAS code for generating a Grouped Horizontal Box Plot, using horizontal box-and-whisker plots grouped by a categorical variable to compare value distribution between different groups/categories */
+
+	title '73.Grouped Horizontal Box Plot';
+	proc sgplot data= &data.;
+	where deathcause <> 'Other' and deathcause <> 'Unknown'; /*// TODO: Update variable filters*/
+	hbox &x. / category= &y. group=sex /* // TODO: Update group variable */
+	lineattrs=(pattern=solid);
+	xaxis grid display=(nolabel);
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 74 %then %do;
+
+/*SAS code for generating a Grouped Horizontal Box Plot with clusterwidth, allowing for multiple datasets to be displayed side by side and grouped based on a categorical variable. Cluster width is proportional to the number of observations in each group */
+
+	title '74.Grouped Horizontal Box with clusterwidth';
+	proc sgplot data= &data.;
+	where deathcause <> 'Other' and deathcause <> 'Unknown'; /* // TODO: Update variable filters */
+	hbox &x. / category= &y. group=sex  /* // TODO: Update the group */
+	lineattrs=(pattern=solid) clusterwidth=0.5;
+	xaxis grid display=(nolabel);
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 75 %then %do;
+
+/* SAS code for generating a Histogram with Normal and Kernel Density Plots, combining features of a histogram with smoothness of normal and kernel density plots */
+
+	title '75.Histogram with Normal and Kernel Density Plots';
+	proc sgplot data= &data.;
+	histogram &x.;
+	density &x.;
+	density &x. / type=kernel;
+	keylegend / location=inside position=topright across=1;
+	xaxis display=(nolabel);
+	yaxis grid; 
+	run;
+
+%end;
+
+%if &plot_num. = 76 %then %do;
+
+/* SAS code for generating a Bar Chart with Reference Line, including a horizontal or vertical line serving as a benchmark/comparison point for the values represented by the bars*/
+
+	title "76.Bar Chart with Reference Line";
+	proc sgplot data= &data.;
+	vbar &x. / response=actual; /* // TODO: Update the response */
+	refline 80;
+	run;
+
+%end;
+
+%if &plot_num. = 77 %then %do;
+
+/* SAS code for generating a Bar Chart with Confidence Limits, including error bars or confidence intervals on top of the bars to indicate variability or uncertainty in the data  */
+
+	title "77.Bar Chart with Confidence Limits";
+	proc sgplot data= &data.;
+	format &x. agefmt.;
+	yaxis label="Avg. Cholesterol"; /* // TODO: Update yaxis variable */
+	vbar &x. / response= &y. stat=mean limitstat=clm
+	alpha=0.05;
+	run;
+
+%end;
+
+%if &plot_num. = 78 %then %do;
+
+/* SAS code for generating a Bar Chart with Upper Limits, including vertical bars with a capped end representing a maximum or upper limit value */
+
+	title "78.Bar Chart with Upper Limits";
+	proc sgplot data= &data.;
+	format &x. agefmt.;
+	yaxis label="Avg. Cholesterol"; /* // TODO: Update Y Axis label variable */
+	vbar &x. / response= &y. stat=mean limits=upper
+	limitstat=stderr numstd=2;
+	run;
+
+%end;
+
+%if &plot_num. = 79 %then %do;
+
+/*  SAS code for generating a Bar Chart with Limits and Label Positioning, including vertical bars with upper and lower limit values, and labels positioned above/below the bars for additional data information*/
+
+	title "79.Bar Chart with Limits and Label Positioning";
+	proc sgplot data= &data.;
+	format &x. agefmt.;
+	yaxis label="Avg. Cholesterol"; /* // TODO: Update Y Axis label variable */
+	vbar &x. / response= &y. stat=mean limitstat=clm
+	datalabel datalabelpos=bottom;
+	run;
+
+%end;
+
+%if &plot_num. = 80 %then %do;
+
+/* SAS code for generating a Bar Chart with Stacked Groups, displaying multiple variables for each category/group with variables stacked on top of each other to show the total value for the group*/
+
+	title "80.Bar Chart with Stacked Groups";
+	proc sgplot data= &data.;
+	yaxis label="Sales (in millions)"; /* // TODO: Update Y Axis label variable */
+	vbar &x. / response=actual group=region datalabel /* // TODO: Update response, group variables */
+	datalabelpos=top;
+	run;
+
+%end;
+
+%if &plot_num. = 81 %then %do;
+
+/* SAS code for generating a Bar Chart with Adjacent Groups, used to compare multiple sets of data grouped into categories/subgroups with bars placed adjacent to each other */
+
+	title "81.Bar Chart with Adjacent Groups";
+	proc sgplot data= &data.;
+	yaxis label="Sales (in millions)"; /* // TODO: Update Y Axis label variable */
+	vbar &x. / response=actual group=region groupdisplay=cluster; /* // TODO: Update response, group variables */
+	run;
+
+%end;
+
+%if &plot_num. = 82 %then %do;
+
+/*SAS code for generating a Bar Chart with Groups and Pattern Fills, used to display and compare data in a way that enhances differentiation between groups/categories.*/
+
+	/*ods listing style=journal2; */
+	title "82.Bar Chart with Groups and Pattern Fills";
+	proc sgplot data= &data.;
+	yaxis label="Sales (in millions)"; /* // TODO: Update Y Axis label variable  */
+	vbar &x. / response=actual group=region groupdisplay=cluster; /* // TODO: Update response, group variables */
+    run;            
+%end;
+
+%if &plot_num. = 83 %then %do;
+
+/* SAS code for generating a Grouped Bar Chart using PROC SGPANEL, a procedure in SAS used to display and compare multiple sets of data grouped into categories/subgroups. */
+
+	title "83.Grouped Bar Chart using PROC SGPANEL";
+	proc sgpanel data= &data.;
+	panelby region / layout=columnlattice noborder novarname onepanel;
+	vbar &x. / response=actual; /* // TODO: Update response variable  */
+	run;
+
+%end;
+
+%if &plot_num. = 84 %then %do;
+
+/*SAS code to generate Bullet Plot for displaying a single data point against a target value, with acceptable value ranges.*/
+
+	title "84.Bullet plot";
+	proc sgplot data= &data.;
+	yaxis label="Sales (in millions)"; /* // TODO: Update Y Axis label variable */
+	vbar &x. / response=actual; /* // TODO: Update response variable  */
+	vbar &x. / response=predict barwidth=0.3;
+	run;
+
+%end;
+
+%if &plot_num. = 85 %then %do;
+
+/* SAS code for generating Overlaid Bar Charts, where each dataset is represented by a separate set of bars positioned next to each other within a category or group.*/
+
+	title "85.Overlaid Bar Charts";
+	proc sgplot data= &data.;
+	yaxis label="Sales (in millions)";   /* // TODO: Update Y Axis label variable */
+	vbar &x. / response=actual barwidth=0.4 discreteoffset=-0.2;
+	vbar &x. / response=predict barwidth=0.4 discreteoffset=0.2;
+	run;
+
+%end;
+
+%if &plot_num. = 86 %then %do;
+
+/* SAS code to generate a basic line chart to display trends and changes over time, with straight line segments connecting data points representing the variable's value change over a specified period. */
+
+	title "86.Basic line chart";
+	proc sgplot data= &data.;
+	format date year.;
+	yaxis label="Workers (in thousands)"; /* // TODO: Update Y Axis label variable */
+	vline &x. / response= &y. stat=mean
+	lineattrs=(color=gray thickness=2);
+	run;
+
+%end;
+
+%if &plot_num. = 87 %then %do;
+
+/* SAS code for generating a line chart with markers, where data points are represented by markers at each time interval in addition to the connecting line. */
+
+	title "87.line chart with markers";
+	proc sgplot data= &data.;
+	format date year.;
+	yaxis label="Workers (in thousands)"; /* // TODO: Update Y Axis label variable */
+	vline &x. / response= &y. stat=mean markers
+	lineattrs=(color=gray thickness=2)
+	markerattrs=(color=gray symbol=circlefilled);
+	run;
+
+%end;
+
+%if &plot_num. = 88 %then %do;
+
+/* SAS code for generating a Line Chart with Break, where the line representing the data is interrupted at one or more points to indicate a discontinuity in the data. */
+
+	title "88.Line Chart with Break";
+	proc sgplot data= &data.;
+	format date year.;
+	yaxis label="Workers (in thousands)"; /* // TODO: Update Y Axis label variable */
+	vline &x. / response= &y. break stat=mean markers
+	lineattrs=(thickness=2) markerattrs=(symbol=circlefilled);
+	run;
+%end;
+
+%if &plot_num. = 89 %then %do;
+
+/* SAS code for generating a line chart with data labels, where the values of data points are labeled to facilitate the identification of specific data points and trends. */
+
+	title "89.Line Chart with Data Labels";
+	proc sgplot data= &data.;
+	format date year.;
+	yaxis label="Workers (in thousands)"; /* // TODO: Update Y Axis label variable */
+	vline &x. / response= &y. stat=mean markers datalabel
+	lineattrs=(thickness=2) markerattrs=(symbol=circlefilled)
+	datalabelattrs=(weight=bold style=italic);
+	run;
+
+%end;
+
+%if &plot_num. = 90 %then %do;
+
+/* SAS code for generating a Line Chart with a Reference Line, where a reference line is added to provide additional context or to highlight a specific value or threshold. */
+
+	title "90.Line Chart with a Reference Line";
+	proc sgplot data= &data.;
+	format date year.;
+	yaxis label="Workers (in thousands)"; /* // TODO: Update Y Axis label variable */
+	vline &x. / response= &y. stat=mean lineattrs=(thickness=2)
+	markers markerattrs=(symbol=circlefilled);
+	refline 300;
+	run;
+
+%end;
+
+%if &plot_num. = 91 %then %do;
+
+/* SAS code for generating a line chart with confidence limits, which display a statistical measure indicating the likely range of values for a population parameter.*/
+
+	title "91.Line Chart with Confidence Limits";
+	proc sgplot data= &data. noautolegend;
+	format date year.;
+	yaxis label="Workers (in thousands)"; /* // TODO: Update Y Axis label variable */
+	vline &x. / response= &y. stat=mean limitstat=clm
+	lineattrs=(thickness=2);
+	run;
+
+%end;
+
+%if &plot_num. = 92 %then %do;
+
+/* SAS code for a Line Chart with upper Limits, commonly used in healthcare and manufacturing to indicate a maximum acceptable value for a metric.*/
+
+	title "92.Line Chart with upper Limits";
+	proc sgplot data= &data. noautolegend;
+	format date year.;
+	yaxis label="Workers (in thousands)"; /* // TODO: Update Y Axis label variable */
+	vline &x. / response= &y. stat=mean limits=upper
+	limitstat=stderr numstd=2 lineattrs=(thickness=2);
+	run;
+%end;
+
+%if &plot_num. = 93 %then %do;
+
+/*SAS code for Line Chart with CLM and Data Label Position: displays trends and range of uncertainty over time with data labels providing additional information about the specific data points. */
+	title "93.Line Chart with CLM and Data Label Position";
+	proc sgplot data= &data.;
+	format date year.;
+	label electric="Workers (in thousands)"; /* // TODO: Update label variable  */
+	yaxis label="Workers"; /* // TODO: Update Y Axis label variable */
+	vline &x. / response= &y. markers stat=mean limitstat=clm
+	markerattrs=(symbol=circlefilled) datalabel datalabelpos=bottom;
+	run;
+
+%end;
+
+%if &plot_num. = 94 %then %do;
+
+/* SAS code for a Grouped Line Chart, which displays and compares multiple sets of data over time using separate lines for each set of data. */
+
+	title "94.Grouped Line Chart";
+	proc sgplot data= &data.; 
+	label _name_="Type of Work";    /* // TODO: Update label_name_ variable */
+	format date year.;
+	yaxis label="Workers"; /* // TODO: Update Y Axis label variable */
+	vline &x. / response= &y. markers stat=mean
+	group=_name_ datalabel datalabelpos=bottom;    /* // TODO: Update the group */
+	run;
+
+%end;
+
+%if &plot_num. = 95 %then %do;
+
+/* SAS code for Line Chart with Curve Labels, which displays data using lines connecting points on a graph with labels indicating values at specific points. */
+
+	title "95.Line Chart with Curve Labels";
+	proc sgplot data= &data.;
+	format date year.;
+	yaxis label="Workers"; /* // TODO: Update Y Axis label variable */
+	vline &x. / response= &y. markers stat=mean
+	group=_name_ curvelabel curvelabelloc=outside;  /* // TODO: Update the group */
+	run;
+
+%end;
+
+%if &plot_num. = 96 %then %do;
+
+/* SAS code for Overlaid Line Charts, used to compare multiple sets of data on a single graph, with each set represented by a separate line plotted on the same graph as the others*/
+
+	title "96.Overlaid Line Charts";
+	proc sgplot data= &data.;
+	format date year.;
+	yaxis label="Workers (in thousands)"; /*// TODO: Update Y Axis label variable */
+	vline &x. / response= &y. stat=mean markers markerattrs=(color=black
+	symbol=circle) lineattrs=(color=black thickness=2);
+	vline &x. / response=masonry stat=mean markers markerattrs=(color=gray /* // TODO: Update response variable*/
+	symbol=circle) lineattrs=(color=gray pattern=solid thickness=2);
+	run;
+
+%end;
+
+%if &plot_num. = 97 %then %do;
+
+/* SAS code for Overlaid Line Charts with Discrete Offset: each set of data is represented by a separate line, plotted on the same graph with a small amount of random noise added to the data points. */
+
+	title "97.Overlaid Line Charts with Discrete Offset";
+	proc sgplot data= &data. noautolegend;
+	format date year.;
+	yaxis label="Workers (in thousands)"; xaxis offsetmin=0.05 offsetmax=0.05; /* // TODO: Update Y Axis label variable  */
+	vline &x. / response= &y. stat=mean markers limitstat=clm discreteoffset=-0.1
+	markerattrs=(color=black symbol=circle) lineattrs=(color=black thickness=2);
+	vline &x. / response=masonry stat=mean markers discreteoffset=0.1 limitstat=clm /* // TODO: Update response variable*/
+	markerattrs=(color=gray symbol=circle) lineattrs=(color=gray pattern=solid
+	thickness=2);
+	run;
+
+%end;
+
+%if &plot_num. = 98 %then %do;
+
+/* SAS code for creating a dot plot where each data point is represented by a dot or small symbol arranged in a line
+   according to the corresponding value */
+
+	title "98.Dot plot";
+	proc sgplot data= &data.;
+	format date year.;
+	xaxis label="Workers (in thousands)"; /*// TODO: Update X Axis label variable  */
+	dot &x. / response= &y. stat=mean datalabel
+	datalabelattrs=(weight=bold style=italic);
+	run;
+
+%end;
+
+%if &plot_num. = 99 %then %do;
+
+/* SAS code for creating a dot plot with reference line to benchmark */
+
+	title "99.Dot plots with reference line";
+	proc sgplot data= &data.;
+	format date year.;
+	xaxis label="Workers (in thousands)"; /*// TODO: Update X axis label variable */
+	dot &x. / response= &y. stat=mean;
+	refline 300 / axis=X;
+	run;
+
+%end;
+
+%if &plot_num. = 100 %then %do;
+
+/* SAS code for creating Dot plots with confidence limits, showing individual data points as dots and their corresponding confidence intervals  */
+
+	title "100.Dot plots with confidence limits";
+	proc sgplot data= &data. noautolegend;
+	format date year.;
+	xaxis label="Workers (in thousands)" grid; /* // TODO: Update label variable filters  */
+	dot &x. / response= &y. stat=mean limitstat=clm;
+	run;
+
+%end;
+
+%if &plot_num. = 101 %then %do;
+
+/* SAS code for Dot plots with upper limits: Displays individual data points as dots with an upper limit line above each dot  */
+
+	title "101.Dot plots with upper limits";
+	proc sgplot data= &data. noautolegend;
+	format date year.;
+	xaxis label="Workers (in thousands)" grid; /* // TODO: Update X axis label variable  */
+	dot &x. / response= &y. stat=mean limits=upper
+	limitstat=stderr numstd=2;
+	run;
+
+%end;
+
+%if &plot_num. = 102 %then %do;
+
+/* SAS code for Grouped Dot Plots: Displays individual data points as dots grouped by category or group */
+
+	title "102.Grouped Dot Plots";
+	proc sgplot data= &data.;
+	format date year.;
+	label _name_="Type of Work"; /* // TODO: Update label_name variable  */
+	xaxis label="Workers";/* // TODO: Update X label variable */
+	dot &x. / response= &y. group=_name_ stat=mean; /* // TODO: Update group*/
+	run;
+
+%end;
+
+%if &plot_num. = 103 %then %do;
+
+/*  SAS code for Overlaid Dot Plots: Plots data points from multiple variables as dots on the same graph using different colors or symbols */
+
+	title "103.Overlaid Dot Plots";
+	proc sgplot data= &data.;
+	format date year.;
+	xaxis label="Workers (in thousands)"; /* // TODO: Update X Axis label */
+	dot &x. / response=electric stat=mean;
+	dot &x. / response=masonry stat=mean;  /* // TODO: Update response variable*/
+	run;
+
+%end;
+
+%if &plot_num. = 104 %then %do;
+
+/* SAS code for Dot Plot with Discrete Offsets: Represents data points as slightly shifted dots to show the frequency of values  */
+
+	title "104.Dot Plot with Discrete Offsets";
+	proc sgplot data= &data.;
+	format date year.;
+	xaxis label="Workers (in thousands)"; /* // TODO: Update X Axis grid label */
+	yaxis offsetmin=0.075 offsetmax=0.075;
+	dot &x. / response=electric stat=mean limitstat=clm
+	discreteoffset=-0.15 markerattrs=(symbol=circle); /* // TODO: Update response variable*/
+	dot &x. / response=masonry stat=mean discreteoffset=0.15
+	limitstat=clm markerattrs=(symbol=circlefilled);
+	run;
+
+%end;
+
+%if &plot_num. = 105 %then %do;
+
+/*  SAS code for Scatter Plot with Plot Grid - 1 Row x 2 Columns: Displays 2 sets of data as separate scatter plots in a grid, with 1 plot per column and both plots sharing the same row */
+
+	title " 105.Scatter plot - Plot Grid - 1 Row x 2 Columns ";
+	proc sgscatter data= &data.;
+	where sex='Male';    /* // TODO: Update the variable filters */
+	plot ( &x. &y. ) * ageatstart / grid  /* // TODO: Update plot variables*/
+	markerattrs=(symbol=circlefilled) transparency=0.96;
+	run;
+
+%end;
+
+%if &plot_num. = 106 %then %do;
+
+/* SAS code for Scatter Plot with Fit: Displays individual data points and a line or curve that represents the best-fit relationship between the 2 variables */
+
+	title "106.Scatter plot - Plot with fit";
+	proc sgscatter data= &data.;
+	where sex='Male';  /* // TODO: Update the variable filters */
+	plot (&x. &y.) * ageatstart / grid transparency=0.98  /* // TODO: Update plot variables*/
+	markerattrs=(symbol=circlefilled) uniscale=Y reg=(degree=2 cli);
+	run;
+
+%end;
+
+%if &plot_num. = 107 %then %do;
+
+/* SAS code for Scatter Plot with Fit and Ellipse: Displays data points with best-fit relationship line/curve and an ellipse indicating data variability*/
+
+	title "107.Scatter plot - Plot with fit and eclipse";
+	proc sgscatter data= &data.;
+	where sex='Male';   /* // TODO: Update the variable filters */
+	plot (&x. &y.) * ageatstart / grid    /* // TODO: Update plot variables*/
+	pbspline=(clm degree=1) ellipse uniscale=Y
+	markerattrs=(symbol=circlefilled) transparency=0.98;
+	run;
+
+%end;
+
+%if &plot_num. = 108 %then %do;
+
+/* SAS program to generate a scatter plot with multiple variables, displayed with a grid and a specified degree polynomial regression line, with specified marker attributes and transparency on a single row */
+
+	title "108.Multiple plot request";
+	proc sgscatter data= &data.;
+	where sex='Male';            /* // TODO: Update the variable filters */
+	plot (&x. &y.) *
+	ageatstart cholesterol*weight      /* // TODO: Update plot variables*/
+	/ grid Reg=(cli degree=2)
+	markerattrs=(symbol=circlefilled)
+	transparency=0.98 rows=1;
+	run;
+
+%end;
+
+%if &plot_num. = 109 %then %do;
+
+/*  SAS code for multiple plot request with ellipses - scatter plot matrix displaying spread and correlation of data  */
+
+	title "109.Multiple plot request with eclipse";
+	proc sgscatter data= &data.;
+	where sex='Male';     /* // TODO: Update the variable filters */
+	plot (diastolic systolic cholesterol)   /* // TODO: Update plot variables*/
+	* ageatstart ageatdeath * ageatstart
+	/ grid pbspline=(clm degree=1)
+	markerattrs=(symbol=circlefilled)
+	transparency=0.98 rows=1 ellipse;
+	run;
+
+%end;
+
+%if &plot_num. = 110 %then %do;
+
+/*  SAS code to generate small multiples with same scale and axis limits displayed side-by-side  */
+
+	title "110.Uniform Side-by-Side Plots";
+	proc sgscatter data= &data.;
+	plot (&x. &y.)*date / group=drug grid uniscale=Y join /* // TODO: Update the group */
+	markerattrs=(size=0);
+	run;
+
+%end;
+
+%if &plot_num. = 111 %then %do;
+
+/*  SAS code to generate a grouped comparative plot displaying data for multiple groups side-by-side to enable easy comparison  */
+
+	title "111.Grouped Comparative Plot";
+	proc sgscatter data= &data.;
+	where type='Sedan'; /* // TODO: Update the variable filters */
+	compare y=(mpg_city) x= (&x. &y.) / group=origin grid  /* // TODO: Update the group, compare y */
+	transparency=0.9 markerattrs=(size=9);
+	run;
+
+%end;
+
+%if &plot_num. = 112 %then %do;
+
+/* SAS code to generate a grouped comparative plot.Quadratic regression fit is not by group */
+
+	title "112.2x2 Grouped ComparativeGraph";
+	proc sgscatter data= &data.;
+	where type='Sedan'; /* // TODO: Update the variable filters */
+	compare y=(mpg_city mpg_highway) 
+	x= ( &x. &y. ) /                /* // TODO: Update the group, compare y */
+	group=origin grid 
+	transparency=0.9
+	markerattrs=(size=9)
+	reg=(nogroup degree=2);
+	run;
+%end;
+
+%if &plot_num. = 113 %then %do;
+
+/* SAS code to generate a grouped comparative plot with linear regression fit */
+
+	title "113.Comparative Graph with linear regression fit";
+	proc sgscatter data= &data.;
+	where deathcause = 'Coronary Heart Disease'; /* // TODO: Update the variable filters */
+	compare y=systolic x=( &x. &y. ) / group=sex /* // TODO: Update the group, compare y */
+	grid reg transparency=0.9; 
+	run;
+%end;
+
+%if &plot_num. = 114 %then %do;
+
+/* SAS code to generate Heat Map*/
+
+	title "114.Heat Map";
+	proc sgscatter data= &data.;
+	label chol_status='Cholesterol';
+	label bp_status='BP';
+	label weight_status='Weight'; /* // TODO: Update label */
+	compare y=(chol_Status bp_Status) x=( &x. &y. ) / grid /* // TODO: Update compare x variable */
+	transparency=0.995 markerattrs=(symbol=squarefilled size=30);
+	run;
+
+%end;
+
+%if &plot_num. = 115 %then %do;
+
+/* SAS code to generate rectangular matrix of scatter plots with confidence ellipse */
+
+	title "115.Rectangular Matrix";
+	proc sgscatter data= &data.;
+	compare x=(systolic diastolic cholesterol) y=(&x. &y.) / /* // TODO: Update compare x variable */
+	markerattrs=(symbol=circlefilled size=10) ellipse
+	grid transparency=0.95;
+	run;
+
+%end;
+
+%if &plot_num. = 116 %then %do;
+
+/* SAS code for Scatter Plot Matrix with filled marker using 80% transparency to provide a better view of data clustering */
+
+	title "116.Scatter Plot Matrix";
+	proc sgscatter data= &data.;
+	where sex='Female'; /* // TODO: Update the variable filters */
+	matrix weight cholesterol systolic / transparency=0.8 /* // TODO: Update the variables */
+	markerattrs=(symbol=circlefilled);
+	run;
+
+%end;
+
+%if &plot_num. = 117 %then %do;
+
+/* It is a type of scatter plot matrix where the diagonal cells display histograms or density
+plots of the distribution of each variable */
+
+	title "117.Scatter plot matrix with histograms";
+	proc sgscatter data= &data.;
+	where sex='Female'; /* // TODO: Update the variable filters */
+	matrix weight cholesterol systolic / transparency=0.6  /* // TODO: Update the variables */
+	markerattrs=(symbol=circlefilled) diagonal=(histogram);
+	run;
+
+%end;
+
+%if &plot_num. = 118 %then %do;
+
+/* SAS code for Scatter Plot Matrix with histograms where diagonal cells display histograms or density plots of variable distribution */
+
+	title "118.Scatter Plot Matrix with histograms";
+	proc sgscatter data= &data.;
+	where sex='Female'; /* // TODO: Update the variable filters */
+	matrix weight cholesterol systolic / transparency=0.6 ellipse /* // TODO: Update the variables */
+	markerattrs=(symbol=circlefilled)
+	diagonal=(histogram normal kernel);
+	run;
+
+%end;
+
+%if &plot_num. = 119 %then %do;
+
+/* SAS code for generating grouped scatter plot with grouping/color-coding based on a categorical variable*/
+
+	title "119.Grouped Scatter plots";
+	proc sgscatter data= &data.;
+	where type='Truck'; /* // TODO: Update the variable filters */
+	matrix mpg_city horsepower weight msrp/ start=bottomleft /* // TODO: Update the variables */
+	transparency=0.5;
+	run;
+
+%end;
+
+%if &plot_num. = 120 %then %do;
+
+/* SAS code to generate Polynomial Regression Fit */
+
+	title "120.Polynomial Regression Fit";
+	proc sgplot data= &data. noautolegend;
+	where type='Sedan' and origin='USA'; /* // TODO: Update the variable filters */
+	reg x= &x. y= &y. / degree=2;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 121 %then %do;
+
+/* SAS code to generate scatter plot with grouped fit lines by specifying a group column on a REG statement*/
+
+	title "121.Grouped Fits";
+	proc sgplot data= &data.;
+	where type='Sedan'; /* // TODO: Update the variable filters */
+	scatter x= &x. y= &y. / group=origin transparency=0.85 /* // TODO: Update the group */
+	name="scat";
+	reg x= &x. y= &y. / group=origin nomarkers name="reg"; /* // TODO: Update the group */
+	keylegend "scat" / title="Origin";
+	keylegend "reg" / location=inside across=1;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 122 %then %do;
+
+/* SAS code to generate a single fit line through all of the grouped scatter data.*/
+
+	title "122.Single Fit with a Group";
+	proc sgplot data= &data.;
+	where type='Sedan'; /* // TODO: Update the variable filters */
+	scatter x= &x. y= &y. / group=origin transparency=0.85 /* // TODO: Update the group */
+	name="scat";
+	reg x= &x. y= &y. / nomarkers degree=3 name="reg";
+	keylegend "scat" / location=inside across=1 title="Origin"; /* // TODO: Update the title */
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 123 %then %do;
+
+/* SAS code to generate overlaid fits/lines of different models on a single plot for easier comparison of their fits */
+
+	title "123.Overlaid Fits";
+	proc sgplot data= &data.;
+	where type='Sedan'; /* // TODO: Update the variable filters */
+	scatter x= &x. y= &y. / transparency=0.85;
+	reg x= &x. y= &y. / nomarkers degree=2 name="reg1"
+	legendlabel="degree=2";
+	reg x= &x. y= &y. / nomarkers degree=3 name="reg2"
+	legendlabel="degree=3";
+	keylegend "reg1" "reg2" / location=inside across=1;
+	xaxis grid; yaxis grid; 
+	run;
+
+%end;
+
+%if &plot_num. = 124 %then %do;
+
+/* CURVELABEL option to directly label the fit lines.*/
+
+	title "124.Curve Labels";
+	proc sgplot data= &data. noautolegend;
+	where type='Sedan';  /* // TODO: Update the variable filters */
+	scatter x= &x. y= &y. / transparency=0.85;
+	reg x= &x. y= &y. / nomarkers degree=2 curvelabel="degree=2";
+	reg x= &x. y= &y. / nomarkers degree=3 curvelabel="degree=3";
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 125 %then %do;
+
+/* SAS code for generating a scatter plot with a smooth curve fitted by the loess method to locally estimate the data trend */
+
+	title "125.Basic Loess Fit";
+	proc sgplot data= &data. noautolegend;
+	where type='Sedan' and origin='USA'; /* // TODO: Update the variable filters */
+	loess x= &x. y= &y.;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 126 %then %do;
+
+/* SAS code for generating a fit plot with smooth curves to display the relationship between two variables using a smoothed curve to fit the data  */
+
+	title "126.Fit Plot with Smooth Curves";
+	proc sgplot data= &data. noautolegend;
+	where type='Sedan' and origin='USA'; /* // TODO: Update the variable filters */
+	loess x= &x. y= &y. / smooth=0.4;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 127 %then %do;
+
+/* SAS code for generating a CLM band plot to display a smoothed curve of the data with confidence limits around the curve  */
+
+	title "127.CLM Band";
+	proc sgplot data= &data. noautolegend;
+	where type='Sedan' and origin='USA'; /* // TODO: Update the variable filters */
+	loess x= &x. y= &y. / smooth=0.4 clm;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 128 %then %do;
+
+/* SAS code for generating Attribute Control plot to monitor and control the proportion of nonconforming items in a sample using a statistical process control chart*/
+
+	title "128.Attribute Control";
+	proc sgplot data= &data. noautolegend;
+	where type='Sedan' and origin='USA'; /* // TODO: Update the variable filters */
+	loess x= &x. y= &y. / clm markerattrs=(symbol=plus)
+	clmattrs=(clmfillattrs=(color=graydd)) smooth=0.4;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 129 %then %do;
+
+/* SAS code for generating Scatter plot with Data Labels */
+
+	title "129.Scatter Data Labels";
+	proc sgplot data= &data. noautolegend;
+	where type='Sedan' and origin='USA'; /* // TODO: Update the variable filters */
+	loess x= &x. y= &y. / clm smooth=0.4 datalabel=minmax;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 130 %then %do;
+
+/* * SAS code for generating a cubic loess fit plot, displaying a smoothed curve fitted to a set of data using the locally weighted scatterplot smoothing (loess) algorithm */
+
+	title "130.Cubic Loess Fit";
+	proc sgplot data= &data. noautolegend;
+	where type='Sedan' and origin='USA'; /* // TODO: Update the variable filters */
+	loess x= &x. y= &y. / interpolation=cubic;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 131 %then %do;
+
+/*  SAS code to generate a plot with grouped scatter points and fit lines by specifying a GROUP column on a LOESS statement */
+
+	title "131.Grouped Fits";
+	proc sgplot data= &data.;
+	where type='Sedan' and drivetrain ne "All"; /* // TODO: Update the variable filters */
+	scatter x= &x. y= &y. / group=DriveTrain transparency=0.8;
+	loess x= &x. y= &y. / group=DriveTrain smooth=0.4 /* // TODO: Update the group */
+	nomarkers name="loess";
+	keylegend "loess" / location=inside across=1 title="Drivetrain";
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 132 %then %do;
+
+/* SAS code to generate a single polynomial regression model fit to multiple subsets/groups of data, represented graphically in a single group plot  */
+
+	title "132.Single Fit with a Group";
+	proc sgplot data= &data.;
+	where type='Sedan' and drivetrain ne "All"; /* // TODO: Update the variable filters */
+	scatter x= &x. y= &y. / group=DriveTrain  /* // TODO: Update the group */
+	transparency=0.8 name="scat";
+	loess x= &x. y= &y. / smooth=0.4 nomarkers;
+	keylegend "scat" / location=inside across=1;
+	xaxis grid;
+	yaxis grid; 
+	run;
+
+%end;
+
+%if &plot_num. = 133 %then %do;
+
+/*  SAS code for generating overlaid fits of different models on a single plot to facilitate comparison of their fit  */
+
+	title "133.Overlaid Fits";
+	proc sgplot data= &data.;
+	where horsepower <= 300; /* // TODO: Update the variable filters */
+	scatter x= &x. y= &y. / transparency=0.8;
+	loess x= &x. y= &y. / nomarkers smooth=0.8 name="loess1";
+	loess x= &x. y= &y. / nomarkers smooth=0.3 name="loess2";
+	keylegend "loess1" "loess2" / location=inside across=1;
+	xaxis grid;
+	yaxis grid; 
+	run;
+
+%end;
+
+%if &plot_num. = 134 %then %do;
+
+/* SAS code for generating Curved Labels */
+
+	title "134.Curved Labels";
+	proc sgplot data= &data. noautolegend;
+	where horsepower <= 300; /* need to update filter based on requirement */
+	scatter x= &x. y= &y. / transparency=0.8 y2axis;
+	loess x= &x. y= &y. / nomarkers smooth=0.8
+	curvelabel="Smooth=0.8" curvelabelpos=min curvelabelloc=outside y2axis;
+	loess x= &x. y= &y. / nomarkers smooth=0.3
+	curvelabel="Smooth=0.3" curvelabelpos=min curvelabelloc=outside y2axis;
+	xaxis grid;
+	y2axis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 135 %then %do;
+
+/* SAS code to generate Parametric B-Spline Fit*/
+
+	title "135.Basic Parametric B-Spline Fit";
+	proc sgplot data= &data. noautolegend;
+	where ageatstart <= 30; /* // TODO: Update the variable filters */
+	pbspline x= &x. y= &y.;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 136 %then %do;
+
+/*  SAS code for generating a plot displaying PBSpline fit and scatter points along with a computed confidence limit of the mean (CLM) * */
+
+	title "136.CLM Band";
+	proc sgplot data= &data. noautolegend;
+	where ageatstart <= 30; /* // TODO: Update the variable filters */
+	pbspline x= &x. y= &y. / clm;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 137 %then %do;
+
+/* SAS code to generate a plot with PBSpline fit, scatter points, CLM band, and individual predicted value confidence limits (CLI) for each observation */
+
+	title "137.CLI Band";
+	proc sgplot data= &data. noautolegend;
+	where ageatstart <= 30; /* // TODO: Update the variable filters */
+	pbspline x= &x. y= &y. / clm cli;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 138 %then %do;
+
+/* SAS code for controlling with visual attributes of the PBSPLINE*/
+
+	title "138.Attribute Control";
+	proc sgplot data= &data. noautolegend;
+	where ageatstart <= 30; /* // TODO: Update the variable filters */
+	pbspline x= &x. y= &y. / clm cli
+	cliattrs=(clilineattrs=(pattern=solid))
+	markerattrs=(symbol=plus);
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 139 %then %do;
+
+/*  The DATALABEL option by default displays non-missing Y values of scatter points, but can be assigned a column to display alternate values  */
+
+	title "139.Scatter Data Labels";
+	proc sgplot data= &data. noautolegend;
+	where ageatstart <= 30; /* // TODO: Update the variable filters */
+	pbspline x= &x. y= &y. / clm cli datalabel=outlier;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 140 %then %do;
+
+/* The DEGREE option allows changing the degree of the B-spline.*/
+
+	title "140.The degree option";
+	proc sgplot data= &data. noautolegend;
+	where ageatstart <= 30;/* // TODO: Update the variable filters */
+	pbspline x= &x. y= &y. / degree=1;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 141 %then %do;
+
+/* Two separate statements are used to control marker transparency with the PBSPLINE statement's NOMARKER option used to disable default scatter points */
+
+	title "141.Grouped fits";
+	proc sgplot data= &data.;
+	where ageatstart <= 30; /* // TODO: Update the variable filters */
+	scatter x= &x. y= &y. / group=sex transparency=0.5 name="scat";
+	pbspline x= &x. y= &y. / group=sex nomarkers name="fit"; /* // TODO: Update the group */
+	keylegend "fit";
+	keylegend "scat" / location=inside;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 142 %then %do;
+
+/*  SAS code for generating a group plot with a single polynomial regression model fit to multiple subsets/groups of data */
+
+	title "142.Single Fit with a Group";
+	proc sgplot data= &data.;
+	where ageatstart <= 30; /* // TODO: Update the variable filters */
+	scatter x= &x. y= &y. / group=sex transparency=0.5 name="scat"; /* // TODO: Update the group */
+	pbspline x= &x. y= &y. / nomarkers;
+	keylegend "scat";
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 143 %then %do;
+
+/* Overlay fits using NOMARKERS on all PBSPLINE except one, or use SCATTER for more control.
+   PBSPLINE statements are assigned to custom legend with LEGENDLABEL option overriding default label. */
+
+	title "143.Overlaid Fits";
+	proc sgplot data= &data.;
+	where ageatstart <= 30; /* // TODO: Update the variable filters */
+	scatter x= &x. y= &y. / transparency=0.5;
+	pbspline x= &x. y= &y. / nomarkers degree=3 name="three"
+	legendlabel="Degree=3";
+	pbspline x= &x. y= &y. / nomarkers degree=1 name="one"
+	legendlabel="Degree=1";
+	keylegend "three" "one";
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 144 %then %do;
+
+/* Plotting scatter plot with PBSPLINE smoothing curves of degrees mentioned  */
+
+	title "144.Curve Labels";
+	proc sgplot data= &data. noautolegend;
+	where ageatstart <= 30; /* // TODO: Update the variable filters */
+	scatter x= &x. y= &y. / transparency=0.5;
+	pbspline x= &x. y= &y. / nomarkers degree=3 curvelabel="Degree=3";
+	pbspline x= &x. y= &y. / nomarkers degree=1 curvelabel="Degree=1";
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 145 %then %do;
+
+/* SAS code to generate an ellipse plot that displays a 2D dataset as ellipses rather than individual points */
+
+	title "145.Ellipse plots";
+	proc sgplot data= &data. noautolegend;
+	where ageatstart <= 30; /* // TODO: Update the variable filters */
+	ellipse x= &x. y= &y.;
+	scatter x= &x. y= &y.;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 146 %then %do;
+
+/* A filled ellipse plot displays 2D data as ellipses filled with color or patterns to indicate data density within groups */
+
+	title "146.The Filled Ellipse";
+	proc sgplot data= &data. noautolegend;
+	where ageatstart <= 30; /* // TODO: Update the variable filters */
+	ellipse x= &x. y= &y. / fill;
+	scatter x= &x. y= &y.;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+
+%if &plot_num. = 147 %then %do;
+
+/*  Use the CLIP option to prevent the ellipse data from influencing the axis range and causing clipping
+    if it extends beyond the other data.  */
+	title "147.Ellipse Clipping";
+	proc sgplot data= &data. noautolegend;
+	where ageatstart <= 30; /* // TODO: Update the variable filters */
+	ellipse x= &x. y= &y. / clip;
+	scatter x= &x. y= &y.;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 148 %then %do;
+
+/* Set the confidence level for the computation using the ALPHA option. The default value is .05.  */
+
+	title "148.Ellipse with ConfidenceLevel";
+	proc sgplot data= &data. noautolegend;
+	where ageatstart <= 30; /* // TODO: Update the variable filters */
+	ellipse x= &x. y= &y. / alpha=.35;
+	scatter x= &x. y= &y.;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 149 %then %do;
+
+/* Control the attributes of the fill or outline features from the ELLIPSE statement when they are visible.  */
+
+	title "149.Ellipse with ConfidenceLevel";
+	proc sgplot data= &data. noautolegend;
+	where ageatstart <= 30;  /* // TODO: Update the variable filters */
+	ellipse x= &x. y= &y. / fill outline lineattrs=(pattern=dash)
+	fillattrs=(color=cxeeeeee);
+	scatter x= &x. y= &y.;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 150 %then %do;
+
+/* The default ellipse type is PREDICTED, which generates a prediction ellipse for a new observation.*/
+
+	title "150.Ellipse Type";
+	proc sgplot data= &data. noautolegend;
+	where ageatstart <= 30; /* // TODO: Update the variable filters */
+	ellipse x= &x. y= &y. / type=mean fill alpha=.001;
+	scatter x= &x. y= &y.;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 151 %then %do;
+
+/* This plot displays the data points for each data set and a covariance matrix ellipse for each set. */
+	title "151.Overlaid Ellipses";
+	proc sgplot data= &data. noautolegend;
+	where ageatstart <= 30; /* // TODO: Update the variable filters */
+	ellipse x= &x. y= &y. / alpha=.05 name="e1";
+	ellipse x= &x. y= &y. / alpha=.25 name="e2";
+	ellipse x= &x. y= &y. / alpha=.50 name="e3";
+	scatter x= &x. y= &y. / datalabel=outlier;
+	keylegend "e1" "e2" "e3";
+	xaxis grid;
+	yaxis grid; 
+	run;
+
+%end;
+
+%if &plot_num. = 152 %then %do;
+
+/*   The overlaid filled ellipses plot is a variation of the overlaid ellipses plot, where the ellipses representing
+     the covariance matrix of each data set are filled with color for easier differentiation. */
+
+	title "152.Overlaid Filled Ellipses";
+	proc sgplot data= &data. noautolegend;
+	where ageatstart <= 30;  /* // TODO: Update the variable filters */
+	ellipse x= &x. y= &y. / fill alpha=.05 name="e1";
+	ellipse x= &x. y= &y. / fill alpha=.25 name="e2";
+	ellipse x= &x. y= &y. / fill alpha=.50 name="e3";
+	scatter x= &x. y= &y. / datalabel=outlier;
+	keylegend "e1" "e2" "e3";
+	xaxis grid;
+	yaxis grid; run;
+	quit;
+
+%end;
+
+%if &plot_num. = 153 %then %do;
+
+/* Use LINEATTRS option to set solid line patterns and display markers* */
+
+	title '153.Grouped Step Plot with Markers';
+	proc sgplot data= &data.;
+	step x= &x. y= &y. / group=drug markers
+	lineattrs=(pattern=solid thickness=1); /* // TODO: Update the group */
+	keylegend / location=inside position=bottomleft across=1;
+	xaxis display=(nolabel);
+	yaxis min=0 integer grid label='Efficacy'; /* // TODO: Update integer grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 154 %then %do;
+
+/* The JUSTIFY option is set to center. */
+
+	title '154.Grouped Step Plot with Markers';
+	proc sgplot data= &data.;
+	step x= &x. y= &y. / group=drug markers justify=center
+	lineattrs=(pattern=solid thickness=1) ; /* // TODO: Update the group */
+	keylegend / location=inside position=bottomleft across=1;
+	xaxis display=(nolabel);
+	yaxis min=0 integer grid label='Efficacy'; /* // TODO: Update integer grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 155 %then %do;
+
+/* Unlike the series plot, the step plot supports options for limits. The error bar pattern is the same as the pattern for the line. */
+
+	title '155.Grouped Step Plot with Upper Limit';
+	proc sgplot data= &data.;
+	step x= &x. y= &y. / yerrorupper=upper group=drug markers
+	justify=center markerattrs=(size=5); /* // TODO: Update yerrorupper, group*/
+	keylegend / location=inside position=bottomleft across=1;
+	xaxis display=(nolabel);
+	yaxis min=0 integer grid label='Response'; /* // TODO: Update integer grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 156 %then %do;
+
+/*  This SAS Code displays data points as connected steps with markers, upper and lower limit lines representing maximum and minimum values, and error bars indicating the range of uncertainty for
+    each data point. */
+
+	title '156.Grouped Step Plot with Both Limits and Error Bar Attributes';
+	proc sgplot data= &data.;
+	step x= &x. y= &y. / yerrorupper=upper yerrorlower=lower group=drug
+	markers justify=center lineattrs=(pattern=solid) /* // TODO: Update yerrorupper, yerrorlower, group*/
+	markerattrs=(size=5)errorbarattrs=(color=grey);
+	keylegend / location=inside position=bottomleft across=1;
+	xaxis display=(nolabel);
+	yaxis min=0 integer grid label='Response'; /* // TODO: Update integer grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 157 %then %do;
+
+/* This SAS Code generates Overlay Step Plot with Curve Labels  */
+
+	title '157.Overlay Step Plot with Curve Labels';
+	proc sgplot data= &data.;
+	step x=date y= &x. / justify=center curvelabel='Drug A'; /* // TODO: Update X variable */
+	step x=date y= &y. / justify=center curvelabel='Drug B';
+	xaxis display=(nolabel);
+	yaxis min=0 integer grid label='Response';  /* // TODO: Update integer grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 158 %then %do;
+
+/* This SAS code produces an Overlay Step Plot that includes a break in the y-axis for improved visualization of the data.*/
+
+	title '158.Overlay Step Plot with Break';
+	proc sgplot data= &data.;
+	step x=date y= &x. / justify=center curvelabel='Drug A'; /* // TODO: Update X variable */
+	step x=date y= &y. / justify=center curvelabel='Drug B' break;
+	refline '10jun2009'd '08oct2009'd / axis=x;
+	xaxis display=(nolabel);
+	yaxis min=0 integer grid label='Response'; /* // TODO: Update integer grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 159 %then %do;
+
+/* SAS code to create a basic band plot that effectively illustrates uncertainty or variation in data, and depicts the expected range of values for the data */
+
+	title '159.Basic Band Plot';
+	proc sgplot data= &data.;
+	where drug='Drug B'; /* update filter based on requirement */
+	band x= &x. upper=upper lower=lower;  /* // TODO: Update upper,lower,group */
+	inset "Drug B" / position=topright border;
+	xaxis display=(nolabel);
+	yaxis grid label='Response'; /* // TODO: Update Y Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 160 %then %do;
+
+/* SAS code to generate band plot with an automatically generated legend. The x-axis label is suppressed.*/
+	title '160.Grouped Band Plot';
+	proc sgplot data= &data.;
+	band x= &x. upper=upper lower=lower / group=drug transparency=0.3;
+	xaxis display=(nolabel); /* // TODO: Update upper,lower,group */
+	yaxis grid label='Response';  /* // TODO: Update Y Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 161 %then %do;
+
+/* Grouped band plot with transparency: a modified version of the original plot that uses different transparency levels
+   to differentiate between multiple shaded bands representing each group or category of data */
+
+	title '161.Grouped Band Plot with Transparency';
+	proc sgplot data= &data.;
+	band x= &x. upper=upper lower=lower / group=drug transparency=0.3;
+	xaxis display=(nolabel); /* // TODO: Update upper,lower,group */
+	yaxis grid label='Response';  /* // TODO: Update Y Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 162 %then %do;
+
+/* This SAS code produces an overlay of two band plots, with separate columns for upper and lower responses.
+   The visual attributes of individual band statements can be customized.  */
+
+	title '162.Overlay Band Plots';
+	proc sgplot data=&data.;
+	band x= &x. upper=upperB lower=lowerB / transparency=0.3 /* // TODO: Update upper,lower */
+	fill outline legendlabel='Drug B';  /* // TODO: Update legendlabel */
+	band x=date upper=upperC lower=lowerC / transparency=0.3
+	outline legendlabel='Drug C'; /* // TODO: Update legendlabel */
+	xaxis display=(nolabel);
+	yaxis grid label='Response';  /* // TODO: Update Y Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 163 %then %do;
+
+/* SAS code to generate Overlay Band Plots with Constant Lower Limit */
+
+	title '163.Overlay Band Plots';
+	proc sgplot data= &data.;
+	band x= &x. upper=upperB lower=0 / transparency=0.5 /* // TODO: Update upper */
+	legendlabel='Drug B';   /* // TODO: Update legendlabel */
+	band x= &x. upper=upperC lower=lowerC / transparency=0.5
+	legendlabel='Drug C';  /* // TODO: Update legendlabel */
+	xaxis display=(nolabel);
+	yaxis grid label='Response';  /* // TODO: Update Y Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 164 %then %do;
+
+/*  the CURVELABEL options to display upper and lower labels for one of the band plots.  */
+
+	title '164.Overlay Band Plots with Curve Labels';
+	proc sgplot data= &data.;
+	band x= &x. upper=upperB lower=lowerB / transparency=0.5 /* // TODO: Update upper,lower */
+	curvelabelupper='High' curvelabellower='Low' curvelabelpos=end
+	legendlabel='Drug B';  /* // TODO: Update legendlabel */
+	band x= &x. upper=upperC lower=lowerC / transparency=0.5
+	legendlabel='Drug C'; /* // TODO: Update legendlabel */
+	xaxis display=(nolabel);
+	yaxis grid label='Response'; /* // TODO: Update Y Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 165 %then %do;
+
+/* This graph displays a step plot of response value with a band plot indicating the limits */
+
+	title '165.Overlay Step and Band Plots';
+	proc sgplot data= &data.;
+	band x= &x. upper=upperB lower=lowerB / transparency=0.5
+	modelname='Value' legendlabel='Limit';
+	step x= &x. y=B / justify=center name='Value' legendlabel='Value'; /* // TODO: Update Y variable*/
+	xaxis display=(nolabel);
+	yaxis grid label='Response'; /* // TODO: Update Y Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 166 %then %do;
+
+/* SAS code to generate Basic Needle Plot */
+
+	title '166.Basic Needle Plot';
+	proc sgplot data= &data.;
+	needle x= &x. y= &y. / lineattrs=(thickness=3);
+	xaxis display=(nolabel);
+	yaxis grid label='(in Millions)'; /* // TODO: Update Y Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 167 %then %do;
+
+/*  This SAS code generates a grouped needle plot, with an OFFSETMAX=0.1 set for the y-axis to create space for the legend, which has been placed inside.  */
+
+	title '167.Grouped Needle Plot';
+	proc sgplot data= &data.;
+	needle x= &x. y= &y. / lineattrs=(thickness=3) group=trade; /* // TODO: Update the group */
+	xaxis display=(nolabel); 
+	yaxis grid label='(in Millions)' offsetmax=0.1; /* // TODO: Update Y Axis grid label */
+	keylegend / location=inside position=topright;
+	run;
+
+%end;
+
+%if &plot_num. = 168 %then %do;
+
+/* This code sets BASELINE=15 to draw needles to this baseline, displays markers and data labels,automatically repositions data labels to avoid collisions, and sets needle thickness to 3px.*/
+
+	title '168.Needle Plot with a Baseline';
+	proc sgplot data= &data.;
+	needle x= &x. y= &y. / lineattrs=(thickness=3) baseline=15
+	datalabel= &y. markers;
+	xaxis display=(nolabel);
+	yaxis grid label='Trade'; /* // TODO: Update Y Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 169 %then %do;
+
+/* Use CLUSTERWIDTH option to reduce cluster width for tighter clustering on discrete x-axis */
+	title '169.Needle Plot with Discrete Groups';
+	proc sgplot data= &data.;
+	needle x= &x. y= &y. / group=trade lineattrs=(thickness=3) /* // TODO: Update the group */
+	groupdisplay=cluster clusterwidth=0.4;
+	xaxis display=(nolabel);
+	yaxis grid label='Trade'; /* // TODO: Update Y Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 170 %then %do;
+
+/* SAS code to generate vector plot */
+
+	title '170.Vector Plot';
+	proc sgplot data= &data.;
+	vector x= &x. y= &y. / xorigin=0.4 yorigin=0.4 lineattrs=(thickness=2);
+	run;
+
+%end;
+
+%if &plot_num. = 171 %then %do;
+
+/* ARROWHEADSHAPE option is used to get barbed arrowheads.*/
+
+	title '171.Vertical Vector Plot';
+	proc sgplot data= &data.;
+	vector x= &x. y= &y. / xorigin=date yorigin=open /* // TODO: Update the xorigin,yorigin variables */
+	arrowheadshape=barbed;
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 172 %then %do;
+
+/* Grouped vector plot with different origins and visual attributes for increasing and decreasing trends */
+
+	title '172.Grouped Vector Plot';
+	proc sgplot data= &data.;
+	vector x= &x. y= &y. / xorigin=date yorigin=open group=trend
+	noarrowheads lineattrs=(thickness=2); /* // TODO: Update the group */
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 173 %then %do;
+
+/* SAS code to generate Parametric Bar Chart with Limits and Data Labels */
+
+	title '173.Parametric Bar Chart with Limits and Data Labels';
+	proc sgplot data= &data.;
+	where _type_=1; /* // TODO: Update the variable filters */
+	vbarparm category= &x. response= &y. / datalabel
+	limitupper=max_mpg_city limitlower=min_mpg_city /* // TODO: Update limitupper, limitlower variables */
+	datalabelpos=bottom;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 174 %then %do;
+
+/* Bar chart with DATASKIN=sheen and GROUPDISPLAY set to Cluster for side-by-side display of group values  */
+
+	title '174.Grouped Parametric Bar Chart';
+	proc sgplot data= &data.;
+	where _type_=3 and (type = 'Sedan' or type='Sports' or type='SUV'); /* // TODO: Update the variable filters */
+	vbarparm category= &x. response= &y. / group=type /* // TODO: Update the group */
+	transparency=0.2;
+	keylegend / location=inside position=topright;
+	xaxis display=(nolabel); yaxis grid offsetmax=0.2;
+	run;
+
+%end;
+
+%if &plot_num. = 175 %then %do;
+
+/*  Bar chart with DATASKIN=sheen, DATALABEL option to display statistics with reduced precision using format, and YAXIS OFFSETMAX=0.2 to make room for legend */
+
+	title '175.Grouped Parametric Bar Chart with Data Labels';
+	proc sgplot data= &data.;
+	where _type_=3 and (type = 'Sedan' or type='Sports' or type='SUV'); /* // TODO: Update the variable filters */
+	format mean_mpg_city 5.1;
+	vbarparm category= &x. response= &y. / group=type /* // TODO: Update the group */
+	dataskin=sheen datalabel;
+	keylegend / location=inside position=topright;
+	xaxis display=(nolabel);
+	yaxis grid offsetmax=0.2; 
+	run;
+
+%end;
+
+%if &plot_num. = 176 %then %do;
+
+/* Overlay of two VBARPARM statements */
+
+	title '176.Overlay Parametric Bar Charts';
+	proc sgplot data= &data.;
+	where _type_=2;
+	vbarparm category=origin response= &y.;  /* // TODO: Update category */
+	vbarparm category=origin response= &x. / barwidth=0.5;
+	xaxis display=(nolabel);
+	yaxis grid label='Mileage'; /* // TODO: Update Y Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 177 %then %do;
+
+/* Bars offset from midpoint using DISCRETEOFFSET option, with reduced bar widths proportional to category spacing */
+
+	title '177.Overlay Parametric Bar Charts with Skins and Offsets';
+	proc sgplot data= &data.;
+	where _type_=2;
+	vbarparm category=origin response= &y. / /* // TODO: Update category */
+	dataskin=pressed discreteoffset=-0.2 barwidth=0.4;
+	vbarparm category=origin response= &x. /
+	dataskin=pressed discreteoffset=0.2 barwidth=0.4;
+	xaxis display=(nolabel);
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 178 %then %do;
+
+/* SAS code to generate Horizontal bars  */
+
+	title '178.Horizontal Parametric Bar Chart';
+	proc sgplot data= &data.;
+	hbarparm category= &x. response= &y.;
+	yaxis display=(nolabel);
+	xaxis grid label='Relative Risk with 95% CL'; /* // TODO: Update X Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 179 %then %do;
+
+/* Setting visual attributes of limit bars using the LIMITATTRS option */
+
+	title '179.Horizontal Parametric Bar Chart with Limits';
+	proc sgplot data= &data.;
+	hbarparm category= &x. response= &y. / limitlower=low limitupper=high
+	limitattrs=(color=grey pattern=dash);
+	yaxis display=(nolabel);
+	xaxis grid label='Relative Risk with 95% CL'; /* // TODO: Update X Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 180 %then %do;
+
+/* SAS comment to generate Basic Bubble plot,Use INSET statement to identify a subset of the data */
+
+	title '180.Basic Bubble plot';
+	proc sgplot data= &data.;
+	where sex='F'; /* // TODO: Update the variable filters */
+	bubble x= &x. y= &y. size=age;/* // TODO: Update the size variable */
+	inset 'Females only' / position=bottomright;
+	xaxis grid; yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 181 %then %do;
+
+/* SAS comment to generate grouped Bubble plots */
+
+	title '181.Grouped bubble plot';
+	proc sgplot data= &data.;
+	where _type_ = 1 and type <> 'Hybrid';  /* // TODO: Update the variable filters */
+	bubble x= &x. y= &y. size=mean_horsepower / /* // TODO: Update the size variable */
+	group=type transparency=0.5; /* // TODO: Update the group */
+	keylegend / location=inside position=bottomright across=1;
+	xaxis grid; yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 182 %then %do;
+
+/* Three-dimensional graph representing data with negative values, similar to a bubble plot but includes both positive and negative values*/
+
+	title '182.Negative Bubbles';
+	proc sgplot data= &data.;
+	bubble x= &x. y= &y. size=AbsValue / group=group transparency=0.2 /* // TODO: Update the group */
+	bradiusmin=15 bradiusmax=30 nofill name='bubble';
+	scatter x= &x. y= &y. / markerchar=value;
+	xaxis grid integer; yaxis grid integer;
+	keylegend 'bubble' / location=inside position=topleft across=1;
+	run;
+
+%end;
+
+%if &plot_num. = 183 %then %do;
+
+/*  Grouped bubble plot showing response by size, with reference lines demarcating quadrants and max/min response values mapped to max/min bubble sizes by radius*/
+
+	title '183.Response Plot';
+	proc sgplot data= &data.;
+	refline 5 / axis=x transparency=0.7;
+	refline 2 / axis=y transparency=0.7;
+	bubble x= &x. y= &y. size=value / group=group transparency=0.4;  /* // TODO: Update the group */
+	keylegend / title='Drug' location=inside position=topright; /* // TODO: Update the title */
+	yaxis display=(nolabel) min=0 max=4;
+	xaxis display=(nolabel) min=0 max=10;
+	run;
+
+%end;
+
+%if &plot_num. = 184 %then %do;
+
+/* Generates High Low plots with End Caps, where each data point is represented by a vertical line/bar with top/bottom representing high/low values and end caps indicating opening/closing values of the range*/
+
+	title '184.High Low plots with End Caps';
+	proc sgplot data= &data.;
+	highlow x= &x. low=lower high=higher / lineattrs=(thickness=2)
+	highcap=highcap lowcap=lowcap; /* // TODO: Update the low,high,highcap,lowcap variables */
+	xaxis grid display=(nolabel);
+	yaxis grid display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 185 %then %do;
+
+/* Generates a bar chart to display range of values for a data set using bars, including high and low values for each bar.*/
+
+	title '185.High Low barchart';
+	proc sgplot data= &data.;
+	where _type_ = 1;          /* // TODO: Update the variable filter */
+	highlow x= &x. low=min_mpg_City high=max_mpg_city / type=bar
+	barwidth=0.5 lowlabel=min_mpg_city highlabel=max_mpg_city;
+	xaxis grid display=(nolabel); /* // TODO: Update the low, high variables */
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 186 %then %do;
+
+/* Events are plotted by aeseq. */
+
+	title '186.High Low barchart 2';
+	proc sgplot data= &data. tmplout='highlow.sas';
+	highlow y=aeseq low= &x. high= &y. / type=bar barwidth=0.6
+	lowlabel=aedecod;
+	xaxis grid display=(nolabel);
+	yaxis grid type=discrete display=(noticks novalues nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 187 %then %do;
+
+/* For events with missing end date, study end date is inserted and marked with HighCap, and displayed as events continuing past the study end date with a high cap arrow */
+
+	title '187.High Low barchart 3';
+	proc sgplot data= &data. tmplout='highlow.sas';
+	highlow y=aeseq low= &x. high= &y. / type=bar barwidth=0.8
+	lowlabel=aedecod highcap=highcap;
+	xaxis grid display=(nolabel);
+	yaxis grid display=(noticks novalues nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 188 %then %do;
+
+/* SAS code to generate a Parametric line plot in a two-dimensional plane */
+
+	title '188.Parametric line plot';
+	proc sgplot data= &data.;
+	where type='Sedan';  /* // TODO: Update the variable filters */
+	scatter x= &x. y= &y. / transparency=0.5 markerattrs=(symbol=circlefilled);
+	lineparm x=0 y=0 slope=1.0 / curvelabel='Slope=1'
+	curvelabelloc=outside lineattrs=(pattern=dash);
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 189 %then %do;
+
+/* Generates a two parametric line plot with two lines that form curves or series of line segments as independent parameter changes over time. */
+
+	title '189.Two Parametric lines';
+	proc sgplot data= &data.;
+	where _type_=1 and type<>'Truck'; /* // TODO: Update the variable filters */
+	bubble x= &x. y= &y. size=_freq_/
+	transparency=0.5 datalabel=type;
+	lineparm x=x y=y slope=slope / curvelabel lineattrs=(pattern=dash)
+	curvelabelpos=min;
+	xaxis grid offsetmin=0.15;
+	yaxis grid; 
+	run;
+
+%end;
+
+%if &plot_num. = 190 %then %do;
+
+/* Generates a chart with a series of bars ordered in descending/ascending order based on the increasing/decreasing variable. */
+
+	title "190.Waterfall charts";
+	proc sgplot data= &data.;
+	waterfall category= &x. response= &y.;
+	yaxis display=(nolabel);
+	run;
+
+%end;
+
+%if &plot_num. = 191 %then %do;
+
+/*Generates a graph to illustrate change in value of a variable over time, including the initial value of the variable. */
+
+	title "191.Waterfall Chart with Initial Value";
+	proc sgplot data= &data.;
+	waterfall category= &x. response= &y. 
+	initialbarvalue=350;
+	yaxis display=(nolabel) grid offsetmin=0;
+	run;
+
+%end;
+
+%if &plot_num. = 192 %then %do;
+
+/*Generates a chart with a series of bars grouped based on a common category, such as product or division in a company */
+
+	title "192.Grouped Waterfall Chart";
+	proc sgplot data= &data.;
+	waterfall category= &x. response= &y. / colorgroup=Type /* // TODO: Update the colorgroup variable*/
+	initialbarvalue=350 initialbarattrs=(color=white)
+	dataskin=pressed finalbarattrs=(color=cx2f2f2f);
+	keylegend / location=inside position=topleft across=1;
+	yaxis display=(nolabel) grid offsetmin=0;
+	run;
+
+%end;
+
+%if &plot_num. = 193 %then %do;
+
+/* Generates a waterfall chart with data labels to illustrate change in value of a variable over time, including exact values for each bar in the chart*/
+
+	title 193."Waterfall Chart with Data Labels";
+	proc sgplot data= &data.;
+	waterfall category= &x. response= &y. /
+	initialbartickvalue="Starting balance" 
+	finalbartickvalue="Ending balance" datalabel
+	initialbarattrs=(color=white) finalbarattrs=(color=black)
+	colorgroup=Type dataskin=pressed initialbarvalue=350; /* // TODO: Update the colorgroup variable*/
+	keylegend / location=inside position=bottom;
+	xaxis fitpolicy=stagger;
+	yaxis display=(nolabel) offsetmin=0 grid; 
+	run;
+
+%end;
+
+%if &plot_num. = 194 %then %do;
+
+/* Generates a standard fit plot with confidence limits computed using REG procedure, with smaller fonts created using VALUEATTRS option on the KEYLEGEND statement.*/
+
+	title '194.Scatter Series and Band';
+	proc sgplot data= &data.;
+	band x= &x. upper=upper lower=lower / legendlabel='Confidence' nofill;
+	band x= &x. upper=uppermean lower=lowermean / legendlabel='Prediction'; /* // TODO: Update the upper, lower variable*/
+	scatter x= &x. y=weight;   /* // TODO: Update the Y variable*/
+	series x= &x. y=predict / lineattrs=GraphFit legendlabel='Predicted Val';
+	keylegend / location=inside position=bottomright across=1
+	valueattrs=(size=6);
+	xaxis grid;
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 195 %then %do;
+
+/* Generates an overlay of two band plots and a needle plot displaying variable over the year with lower and upper limits, with upper limit labeled avoiding the need for a legend*/
+
+	title '195.Scatter and Band';
+	proc sgplot data= &data. noautolegend;
+	band x= &x. upper=high lower=low / fillattrs=graphdata1 /* // TODO: Update upper, lower */
+	fill outline curvelabelupper='High';
+	band x= &x. upper=low lower=0 / fillattrs=graphdata5
+	fill outline curvelabelupper='Low';
+	needle x= &x. y= &y. / lineattrs=(thickness=2) transparency=0.5;
+	xaxis grid display=(nolabel);
+	yaxis grid;
+	run;
+
+%end;
+
+%if &plot_num. = 196 %then %do;
+
+/* Generates a Theme River plot created using grouped band plot, with data covering full height of each band, and transparency used to ensure visibility of all bands*/
+
+	title '196.Grouped Band';
+	proc sgplot data= &data.;
+	band x= &x. upper=upper lower=lower / group=name transparency=0.7 /* // TODO: Update the group,upper,lower */
+	fill outline lineattrs=(pattern=solid);
+	keylegend / position=bottomright location=inside across=1
+	valueattrs=(size=4);
+	xaxis display=(nolabel) grid;
+	yaxis grid label='Relative Frequency' display=(novalues noticks); /* // TODO: Update Y Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 197 %then %do;
+
+/* Generates a graph using a four band overlay to display data in separate columns for each band*/
+
+	title '197.Band Overlay';
+	proc sgplot data= &data.;
+	band x= &x. upper=Janeu lower=Janel / fill outline lineattrs=(pattern=solid);
+	band x= &x. upper=BillU lower=BillL / fill outline lineattrs=(pattern=solid);
+	band x= &x. upper=MaryU lower=MaryL / fill outline lineattrs=(pattern=solid);
+	band x= &x. upper=JohnU lower=JohnL / fill outline lineattrs=(pattern=solid);  /* // TODO: Update the Upper, Lower variable*/
+	keylegend / position=bottomright location=inside across=1 valueattrs=(size=4);
+	xaxis display=(nolabel) grid;
+	yaxis grid label='Relative Frequency' display=(novalues noticks);  /* // TODO: Update the variable Y Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 198 %then %do;
+
+/* Displays variability in a dataset and central tendency/mean of the data."*/
+
+	title '198.Floating Bars and Bands';
+	proc sgplot data= &data.;
+	highlow x= &x. high=high low=low / highlabel=high lowlabel=low
+	type=bar legendlabel='30 Year Average' transparency=0.5;
+	band x= &x. upper=thisyearH lower=thisyearL / fill outline /* // TODO: Update upper, lower variables */
+	transparency=0.5 fillattrs=graphdata3 legendlabel='This Year';
+	keylegend / position=bottom location=inside;
+	xaxis display=(nolabel) grid valueattrs=(size=7);
+	yaxis grid label='Temperature (F)' valueattrs=(size=7); /* // TODO: Update the variable Y Axis grid label */
+	run;
+
+%end;
+
+%if &plot_num. = 199 %then %do;
+
+/* Generates a graph to visualize statistical data grouped by categories, a horizontal bar chart displaying mean and confidence interval/standard error for each category.*/
+
+	title '199.Hbarparm with statistics';
+	proc sgplot data= &data. noautolegend;
+	hbarparm category=product response=sales / dataskin=gloss
+	limitupper=high limitlower=low;
+	scatter y= &x. x=labelV / markerchar=vol x2axis;   /* // TODO: Update the X, markerchar variable*/
+	scatter y= &x. x=labelM / markerchar=margin x2axis;  /* // TODO: Update the X, markerchar variable*/
+	xaxis grid display=(nolabel) offsetmin=0 offsetmax=0.20
+	values=(0 to 20000 by 5000) valueshint;
+	x2axis offsetmin=0.84 offsetmax=0.05 display=(noticks nolabel) valueattrs=(size=7);
+	yaxis display=(nolabel); 
+	run;
+
+%end;
+
+%if &plot_num. = 200 %then %do;
+
+/* Generates a scatter panel plot with each panel displaying a scatter plot of two variables for a specific group/category of data */
+
+	title '200.Scatter panel';
+	proc sgpanel data= &data. ;
+	where (type='Sedan' or type='Sports') and
+	(origin='USA' or origin='Asia') and
+	(drivetrain='Front' or drivetrain='Rear'); /* // TODO: Update the variable filters */
+	panelby origin type drivetrain / novarname onepanel columns=4; /* // TODO: Update the variables */
+	scatter x= &x. y= &y. / transparency=0.6;
+	rowaxis grid; colaxis grid;
+	run;
+%end;
+
+
+%mend create_plots;
+
