@@ -11,11 +11,10 @@ Software to run: SAS 8.2.0/n
 
 This macro serves as a tool to aid in visualizing datasets, including all possible combinations of plots available in SAS. 
 
-This version can be extended and customized according to user needs. /n
+This version can be extended and customized according to user needs. 
 
 
 **** Files included ****
 
 1) Ford_credit_visualization_dictionary -EGP 
-2) 
-3) Final_Plots_200 - Notepad ++
+2) Final_Plots_200 - Notepad ++
